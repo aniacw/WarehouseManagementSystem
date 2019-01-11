@@ -26,25 +26,25 @@ public class OrdersController {
     public void onButtonSearchOrderClicked(){
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("orderSearch.fxml"));
+            root = FXMLLoader.load(getClass().getResource("fxml/orderSearch.fxml"));
+            stage.setTitle("Search Order");
+            stage.setScene(new Scene(root, 884, 528));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        stage.setTitle("Search Order");
-        stage.setScene(new Scene(root, 884, 528));
-        stage.show();
     }
 
     public void onButtonPlaceOrderClicked(){
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("orderPlace.fxml"));
+            root = FXMLLoader.load(getClass().getResource("fxml/orderPlace.fxml"));
+            stage.setTitle("Place new Order");
+            stage.setScene(new Scene(root, 884, 528));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        stage.setTitle("Place new Order");
-        stage.setScene(new Scene(root, 884, 528));
-        stage.show();
     }
 
 

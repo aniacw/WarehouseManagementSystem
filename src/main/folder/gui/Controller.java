@@ -24,21 +24,21 @@ public class Controller {
     }
 
     public void onProductManagementButtonClicked() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("productManagement.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/productManagement.fxml"));
         stage.setTitle("Product Management");
         stage.setScene(new Scene(root, 884, 528));
         stage.show();
     }
 
     public void onOrdersButtonClicked() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("ordersManagement.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/ordersManagement.fxml"));
         stage.setTitle("Orders");
         stage.setScene(new Scene(root, 884, 528));
         stage.show();
     }
 
     public void onSuppliersButtonClicked() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("supplierManagement.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/supplierManagement.fxml"));
         stage.setTitle("Supplier Management");
         stage.setScene(new Scene(root, 884, 528));
         stage.show();

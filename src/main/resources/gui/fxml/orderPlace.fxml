@@ -72,11 +72,11 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ChoiceBox fx:id="suppliersCombobox" prefWidth="200.0">
+            <ChoiceBox fx:id="suppliersComboBox" prefWidth="200.0">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin></ChoiceBox>
-            <ChoiceBox fx:id="productsCombobox" prefWidth="200.0" GridPane.rowIndex="1">
+            <ChoiceBox fx:id="productsComboBox" prefWidth="200.0" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin></ChoiceBox>

@@ -3,10 +3,7 @@ package gui;
 import Product.Product;
 import Product.Supplier;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class OrderPlaceController {
 
@@ -18,12 +15,12 @@ public class OrderPlaceController {
             submitOrderButton;
 
     @FXML
-    ComboBox<Supplier>
-            suppliersCombobox;
+    ChoiceBox<Supplier>
+            suppliersComboBox;
 
     @FXML
-    ComboBox<Product>
-            productsCombobox;
+    ChoiceBox<Product>
+            productsComboBox;
 
     @FXML
     TextField
