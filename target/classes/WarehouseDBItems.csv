@@ -1,0 +1,29 @@
+product_id,product_name,category,unit_price,supplier_id
+1,'Galaxy S7','smartphone',2000,5
+2,'Galaxy S8','smartphone',1500,5
+3,'Galaxy S9','smartphone',800,5
+4,'A7','smartphone',3500,5
+5,'A8','smartphone',3600,5
+6,'IPhone 7','smartphone',4500,2
+7,'IPhone 7 plus','smartphone',1200,2
+8,'Iphone 8','smartphone',700,2
+9,'IPhone 8 plus','smartphone',2800,2
+10,'Xperia XZ1','smartphone',2700,13
+11,'Xperia XZ2','smartphone',1300,13
+12,'Xperia XXC','smartphone',1400,13
+13,'Mate','smartphone',1250,12
+14,'P20 Lite','smartphone',900,12
+15,'8 Sirocco','smartphone',750,6
+16,'P20 Pro Dual','smartphone',1900,12
+17,'Galaxy S9+','smartphone',2710,5
+18,'Galaxy S8+','smartphone',400,5
+19,'iPhone X','smartphone',3300,2
+20,'iPhone XR','smartphone',3900,2
+21,'iPhone XS','smartphone',4500,2
+22,'Y5','smartphone',1200,12
+23,'Mate 10 Lite','smartphone',1000,12
+24,'Y7 Prime','smartphone',750,7
+25,'P Smart','smartphone',4800,12
+26,'J6','smartphone',5000,4
+27,'JV7','smartphone',3200,4
+28,'K11','smartphone',1800,4
