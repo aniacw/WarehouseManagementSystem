@@ -13,7 +13,8 @@ public class Controller {
 
     @FXML
     Button productManagementButton,
-            ordersButton;
+            ordersButton,
+            suppliersButton;
 
     @FXML
     Stage stage;
@@ -21,7 +22,6 @@ public class Controller {
     public void initialize(){
         stage = new Stage();
     }
-
 
     public void onProductManagementButtonClicked() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("productManagement.fxml"));
@@ -31,8 +31,15 @@ public class Controller {
     }
 
     public void onOrdersButtonClicked() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("productManagement.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ordersManagement.fxml"));
         stage.setTitle("Orders");
+        stage.setScene(new Scene(root, 884, 528));
+        stage.show();
+    }
+
+    public void onSuppliersButtonClicked() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("supplierManagement.fxml"));
+        stage.setTitle("Supplier Management");
         stage.setScene(new Scene(root, 884, 528));
         stage.show();
     }

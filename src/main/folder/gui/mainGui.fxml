@@ -39,7 +39,7 @@
             <Insets right="10.0" top="10.0" />
          </GridPane.margin>
       </Button>
-      <Button mnemonicParsing="false" prefHeight="192.0" prefWidth="326.0" text="Suppliers" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP">
+      <Button fx:id="suppliersButton" mnemonicParsing="false" onAction="#onSuppliersButtonClicked" prefHeight="192.0" prefWidth="326.0" text="Suppliers" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="10.0" top="10.0" />
          </GridPane.margin>
