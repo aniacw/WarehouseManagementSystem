@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -41,7 +42,7 @@ public class CSVLoader {
 //    }
 
     public static void loadTable(String filename, String tablename, Session session) throws FileNotFoundException {
-        File file =new File(filename);
+        File file = new File(filename);
         FileInputStream stream = new FileInputStream(file);
         Scanner scanner = new Scanner(stream);
         String header = scanner.nextLine();
@@ -54,15 +55,15 @@ public class CSVLoader {
     }
 
     public static void loadProductsTable(String filename, Session session) throws FileNotFoundException {
-        File file =new File(filename);
+        File file = new File(filename);
         FileInputStream stream = new FileInputStream(file);
         Scanner scanner = new Scanner(stream);
         scanner.nextLine();
         session.beginTransaction();
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
-            String[] fields=line.split(",");
-            Product p =new Product(
+            String[] fields = line.split(",");
+            Product p = new Product(
                     Integer.parseInt(fields[0]),
                     fields[1],
                     fields[2],
@@ -74,14 +75,39 @@ public class CSVLoader {
     }
 
     public static void loadProductsTable(String filename) throws FileNotFoundException {
-        Session session= Sessions.getSessionFactory().openSession();
+        Session session = Sessions.getSessionFactory().openSession();
         loadProductsTable(filename, session);
         session.close();
     }
 
     public static void loadTable(String filename, String tablename) throws FileNotFoundException {
-        Session session= Sessions.getSessionFactory().openSession();
+        Session session = Sessions.getSessionFactory().openSession();
         loadTable(filename, tablename, session);
+        session.close();
+    }
+
+    public static void loadSuppliersTable(String filename, Session session) throws FileNotFoundException {
+        File file = new File(filename);
+        FileInputStream stream = new FileInputStream(file);
+        Scanner scanner = new Scanner(stream);
+        scanner.nextLine();
+        session.beginTransaction();
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            String[] fields = line.split(",");
+            Supplier s = new Supplier(
+                    fields[0],
+                    Integer.parseInt(fields[1]),
+                    fields[2],
+                    Integer.parseInt(fields[3]));
+            session.save(s);
+        }
+        session.getTransaction().commit();
+    }
+
+    public static void loadSuppliersTable(String filename) throws FileNotFoundException {
+        Session session = Sessions.getSessionFactory().openSession();
+        loadSuppliersTable(filename, session);
         session.close();
     }
 }

@@ -11,9 +11,9 @@ public class Sessions {
 
     private static SessionFactory buildSessionAnnotationFactory() {
         try {
-            StandardServiceRegistry ssr=new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
-            Metadata meta=new MetadataSources(ssr).getMetadataBuilder().build();
-            sessionFactory =meta.getSessionFactoryBuilder().build();
+            StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
+            Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
+            sessionFactory = meta.getSessionFactoryBuilder().build();
 
             return sessionFactory;
         } catch (Throwable e) {
@@ -22,7 +22,7 @@ public class Sessions {
     }
 
     public static SessionFactory getSessionFactory() {
-        if(sessionFactory == null)
+        if (sessionFactory == null)
             sessionFactory = buildSessionAnnotationFactory();
         return sessionFactory;
     }

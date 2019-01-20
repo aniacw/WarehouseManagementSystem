@@ -25,7 +25,7 @@ public class Controller {
 
     public void onProductManagementButtonClicked() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/productManagement.fxml"));
-        stage.setTitle("data Management");
+        stage.setTitle("Product Management");
         stage.setScene(new Scene(root, 884, 528));
         stage.show();
     }

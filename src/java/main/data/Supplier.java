@@ -22,7 +22,19 @@ public class Supplier {
     @Column(name = "phone_number", nullable = false)
     private int phoneNumber;
 
-    @OneToMany(mappedBy = "supplier", fetch = FetchType.EAGER)
+    public Supplier() {
+    }
+
+    public Supplier(String name, int id, String email, int phoneNumber) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
+    @OneToMany(mappedBy = "supplier",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},
+            fetch = FetchType.EAGER)
     private List<Product> products;
 
     public String getName() {
