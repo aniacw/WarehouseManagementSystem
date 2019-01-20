@@ -2,11 +2,12 @@ package main.data;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "suppliers")
-public class Supplier {
+public class Supplier  {
 
     @Column(name = "supplier_name", nullable = false)
     private String name;

@@ -12,8 +12,10 @@ import javafx.scene.control.TextField;
 import main.factory.Sessions;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import javax.persistence.Entity;
+import java.util.List;
 
 public class SupplierManagementController {
 
@@ -44,30 +46,31 @@ public class SupplierManagementController {
             supplierIdCol,
             supplierPhoneCol;
 
-
     Supplier supplier;
     SessionFactory sessionFactory;
     ObservableList<Supplier> data;
 
     public void initialize() {
         sessionFactory = Sessions.getSessionFactory();
-        createSupplierList();
-
-        supplierNameCol = new TableColumn<Supplier, String>("supplier_name");
-        supplierNameCol.setCellValueFactory(new PropertyValueFactory<Supplier, String>("name"));
-
-        supplierList.setItems(data);
-
         supplierList.getColumns().clear();
-        supplierList.getColumns().add(supplierNameCol);
 
+        supplierNameCol.setCellValueFactory(new PropertyValueFactory<Supplier, String>("name"));
+        supplierIdCol.setCellValueFactory(new PropertyValueFactory<Supplier, Integer>("id"));
+        supplierEmailCol.setCellValueFactory(new PropertyValueFactory<Supplier, String>("email"));
+        supplierPhoneCol.setCellValueFactory(new PropertyValueFactory<Supplier, Integer>("phoneNumber"));
+
+        supplierList.setItems(createSupplierList());
     }
 
-    public void createSupplierList() {
-        //supplierList = new TableView<Supplier>();
+    @SuppressWarnings("unchecked")
+    public ObservableList<Supplier> createSupplierList() {
         data = FXCollections.observableArrayList();
-        data.add(new Supplier("vvv", 1, "emai", 33));
-
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Supplier> suppliers = session.createQuery("from Supplier ").list();
+        for(Supplier s : suppliers)
+            data.add(s);
+        return data;
     }
 
     //OK. Wpisywanie danych w textfieldy

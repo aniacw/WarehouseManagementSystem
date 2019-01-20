@@ -2,24 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/main/data/CSVLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/main/data/CSVLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/main/data/Supplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/main/data/Supplier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/main/factory/Sessions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/main/factory/Sessions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/main/gui/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/main/gui/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/main/gui/SupplierManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/main/gui/SupplierManagementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/main/gui/fxml/supplierManagement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/main/gui/fxml/supplierManagement.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/WarehouseDBStockTracker.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/WarehouseDBStockTracker.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/WarehouseDBSuppliers.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/WarehouseDBSuppliers.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/WarehouseDBStockTracker.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/WarehouseDBStockTracker.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/WarehouseDBSuppliers.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/WarehouseDBSuppliers.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/data/CSVLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/data/CSVLoader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/data/Supplier.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/data/Supplier.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/gui/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/gui/Controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/gui/SupplierManagementController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/gui/SupplierManagementController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/gui/fxml/supplierManagement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/gui/fxml/supplierManagement.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -161,7 +145,7 @@
           <entry key="csv" value="80" />
           <entry key="dummy" value="7" />
           <entry key="fxml" value="35" />
-          <entry key="java" value="4715" />
+          <entry key="java" value="4976" />
           <entry key="sql" value="24" />
           <entry key="txt" value="9" />
           <entry key="xml" value="37" />
@@ -170,7 +154,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSV" value="23" />
-          <entry key="JAVA" value="4715" />
+          <entry key="JAVA" value="4976" />
           <entry key="PLAIN_TEXT" value="73" />
           <entry key="SQL" value="24" />
           <entry key="XML" value="72" />
@@ -186,8 +170,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/main/data/Supplier.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="176">
+              <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -207,8 +191,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/java/main/gui/SupplierManagementController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
-              <caret line="66" column="10" selection-start-line="66" selection-start-column="10" selection-end-line="66" selection-end-column="10" />
+            <state relative-caret-position="654">
+              <caret line="69" column="80" lean-forward="true" selection-start-line="69" selection-start-column="35" selection-end-line="69" selection-end-column="80" />
+              <folding>
+                <element signature="e#2176#2206#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -559,12 +546,12 @@
       <workItem from="1547292894233" duration="8451000" />
       <workItem from="1547379728096" duration="8129000" />
       <workItem from="1547899401026" duration="661000" />
-      <workItem from="1547915678313" duration="7031000" />
+      <workItem from="1547915678313" duration="16578000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58113000" />
+    <option name="totallyTimeSpent" value="67660000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
@@ -574,7 +561,7 @@
       <window_info id="UI Designer" order="1" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
-      <window_info content_ui="combo" id="Project" order="4" sideWeight="0.6703755" visible="true" weight="0.16756175" />
+      <window_info content_ui="combo" id="Project" order="4" sideWeight="0.6703755" visible="true" weight="0.07250269" />
       <window_info id="Structure" order="5" weight="0.25" />
       <window_info id="Favorites" order="6" />
       <window_info id="Persistence" order="7" side_tool="true" />
@@ -582,7 +569,7 @@
       <window_info anchor="bottom" id="Database Changes" order="1" />
       <window_info anchor="bottom" id="Message" order="2" />
       <window_info anchor="bottom" id="Find" order="3" weight="0.32975295" />
-      <window_info active="true" anchor="bottom" id="Run" order="4" visible="true" weight="0.3566058" />
+      <window_info active="true" anchor="bottom" id="Run" order="4" visible="true" weight="0.12781955" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.39957035" />
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
@@ -603,7 +590,7 @@
       <window_info anchor="right" id="Ant Build" order="4" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="5" weight="0.25" />
       <window_info anchor="right" id="JetGradle" order="6" />
-      <window_info anchor="right" id="Database" order="7" visible="true" weight="0.14769065" />
+      <window_info anchor="right" id="Database" order="7" visible="true" weight="0.11868958" />
       <window_info anchor="right" id="Palette" order="8" />
       <window_info anchor="right" id="Maven Projects" order="9" weight="0.32975295" />
     </layout>
@@ -644,6 +631,24 @@
           <line>101</line>
           <properties />
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/java/main/gui/SupplierManagementController.java</url>
+          <line>56</line>
+          <properties />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/java/main/gui/SupplierManagementController.java</url>
+          <line>57</line>
+          <properties />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/java/main/gui/SupplierManagementController.java</url>
+          <line>71</line>
+          <properties />
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -853,13 +858,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/main/data/Product.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
@@ -880,16 +878,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/main/data/Supplier.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/main/gui/fxml/supplierManagement.fxml">
       <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
       <provider editor-type-id="text-editor">
@@ -898,10 +886,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/main/data/Product.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/main/data/Supplier.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/main/gui/SupplierManagementController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="66" column="10" selection-start-line="66" selection-start-column="10" selection-end-line="66" selection-end-column="10" />
+        <state relative-caret-position="654">
+          <caret line="69" column="80" lean-forward="true" selection-start-line="69" selection-start-column="35" selection-end-line="69" selection-end-column="80" />
+          <folding>
+            <element signature="e#2176#2206#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
