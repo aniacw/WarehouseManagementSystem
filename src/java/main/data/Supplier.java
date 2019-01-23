@@ -2,7 +2,6 @@ package main.data;
 
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -76,5 +75,16 @@ public class Supplier  {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    @Override
+    public String toString() {
+        return "Supplier{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                ", email='" + email + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", products=" + products +
+                '}';
     }
 }

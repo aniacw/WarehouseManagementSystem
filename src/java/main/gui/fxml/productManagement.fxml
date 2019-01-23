@@ -43,8 +43,11 @@
             </VBox>
             <TableView fx:id="productList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="productIdCol" prefWidth="98.0" text="product_id" />
+                <TableColumn fx:id="productNameCol" prefWidth="312.0" text="name" />
+                  <TableColumn fx:id="productCategoryCol" prefWidth="68.0" text="category" />
+                  <TableColumn fx:id="productPriceCol" prefWidth="110.0" text="unit-price" />
+                  <TableColumn fx:id="productSupplierIdCol" prefWidth="88.0" text="supplier_id" />
               </columns>
                <GridPane.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -52,7 +55,7 @@
             </TableView>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="search" promptText="search...">
+                  <TextField fx:id="search" promptText="search by supplier name">
                      <HBox.margin>
                         <Insets left="20.0" top="20.0" />
                      </HBox.margin>
@@ -67,6 +70,8 @@
                         <Insets left="20.0" top="20.0" />
                      </HBox.margin>
                   </Button>
+                  <TextField fx:id="idSearch" promptText="search by SupplierID" />
+                  <Button mnemonicParsing="false" text="search" />
                </children>
             </HBox>
          </children>

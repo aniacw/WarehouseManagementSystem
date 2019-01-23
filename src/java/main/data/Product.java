@@ -23,7 +23,7 @@ public class Product {
     @Column(name = "supplier_id", nullable = false)
     private int supplierId;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "supplier_id", insertable = false, updatable = false)
     private Supplier supplier;
 
