@@ -18,6 +18,9 @@ import main.factory.Sessions;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import javax.persistence.Column;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -63,24 +66,36 @@ public class ProductManagementController {
     ObservableList<Product> data;
 
 
+    private List<String> productColumnNames(){
+        Field[] fields =  Product.class.getFields();
+        ArrayList<String> columnNames = new ArrayList<>(fields.length);
+        for (Field f : fields) {
+            Column columnAnnotation = f.getAnnotation(Column.class);
+            columnNames.add(columnAnnotation.name());
+        }
+        return columnNames;
+    }
+
+
     public void initialize() {
         sessionFactory = Sessions.getSessionFactory();
-        productList.getColumns().clear();
-        productIdCol.setCellValueFactory(new PropertyValueFactory<Product, Integer>("product_id"));
+//        productList.getColumns().clear();
+        productIdCol.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id")); //nazwa pola w klasie
         productNameCol.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
         productCategoryCol.setCellValueFactory(new PropertyValueFactory<Product, String>("category"));
-        productPriceCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
-        productSupplierIdCol.setCellValueFactory(new PropertyValueFactory<Product, Integer>("supplier_id"));
-        productList.getColumns().setAll(productIdCol, productNameCol, productCategoryCol, productPriceCol, productSupplierIdCol);
-        productList.setItems(createProductList());
+        productPriceCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("unitPrice"));
+        productSupplierIdCol.setCellValueFactory(new PropertyValueFactory<Product, Integer>("supplierId"));
+//        productList.getColumns().setAll(productIdCol, productNameCol, productCategoryCol, productPriceCol, productSupplierIdCol);
+
         productList.setEditable(true);
         productIdCol.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
         productNameCol.setCellFactory(TextFieldTableCell.<Product>forTableColumn());
         productCategoryCol.setCellFactory(TextFieldTableCell.<Product>forTableColumn());
         productPriceCol.setCellFactory(TextFieldTableCell.<Product, Double>forTableColumn(new DoubleStringConverter()));
         productSupplierIdCol.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
-
+        productList.setItems(createProductList());
     }
+
 
     public ObservableList<Product> createProductList() {
         data = FXCollections.observableArrayList();
@@ -93,19 +108,34 @@ public class ProductManagementController {
     }
 
     public void onSearchButtonClicked() {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
+        //Session session = sessionFactory.getCurrentSession();
+        //session.beginTransaction();
 
-        int id = Integer.parseInt(idSearch.getText());
-        List<Product> productsFoundList = new ArrayList<Product>();
-        Product productsFound = session.get(Product.class, id);
+        String idText = idSearch.getText();
+        if (idText.isEmpty()){
+            productList.setItems(data.filtered(
+                    p -> p.getSupplierId() == null));
+        }
+        else{
+            int id = Integer.parseInt(idSearch.getText());
+            productList.setItems(data.filtered(
+                    p -> {
+                        Integer pid = p.getSupplierId();
+                        return pid != null && pid.equals(id);
+                    }));
+        }
+
+
+
+        //List<Product> productsFoundList = new ArrayList<Product>();
+        //Product productsFound = session.get(Product.class, id);
 
 
 
 
-        session.save(product);
-        session.getTransaction().commit();
-        sessionFactory.close();
+        //session.save(product);
+        //session.getTransaction().commit();
+        //sessionFactory.close();
     }
 
     public void onRefreshButtonClicked() {

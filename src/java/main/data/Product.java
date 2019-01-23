@@ -1,6 +1,8 @@
 package main.data;
 
 
+import javafx.util.converter.IntegerStringConverter;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,7 +11,7 @@ public class Product {
     @Id
     @Column(name = "product_id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "product_name", nullable = false)
     private String name;
@@ -18,20 +20,19 @@ public class Product {
     private String category;
 
     @Column(name = "unit_price", nullable = false, precision = 8, scale = 2)
-    private double unitPrice;
+    private Double unitPrice;
 
-    @Column(name = "supplier_id", nullable = false)
-    private int supplierId;
+    @Column(name = "supplier_id", nullable = true)
+    private Integer supplierId;
 
     @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name = "supplier_id", insertable = false, updatable = false)
+    @JoinColumn(referencedColumnName = "supplier_id", insertable = true, updatable = true, nullable = false)
     private Supplier supplier;
 
     public Product() {
-
     }
 
-    public Product(int id, String name, String category, double unitPrice, int supplierId) {
+    public Product(Integer id, String name, String category, double unitPrice, Integer supplierId) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -40,11 +41,11 @@ public class Product {
     }
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -72,11 +73,11 @@ public class Product {
         this.unitPrice = unitPrice;
     }
 
-    public int getSupplierId() {
+    public Integer getSupplierId() {
         return supplierId;
     }
 
-    public void setSupplierId(int supplierId) {
+    public void setSupplierId(Integer supplierId) {
         this.supplierId = supplierId;
     }
 

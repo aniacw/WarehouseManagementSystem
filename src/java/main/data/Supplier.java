@@ -33,7 +33,7 @@ public class Supplier  {
     }
 
     @OneToMany(mappedBy = "supplier",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH},
             fetch = FetchType.EAGER)
     private List<Product> products;
 

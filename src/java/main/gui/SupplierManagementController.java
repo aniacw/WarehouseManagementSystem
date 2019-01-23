@@ -11,11 +11,13 @@ import main.data.Supplier;
 import javafx.fxml.FXML;
 import main.factory.Sessions;
 import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import javax.persistence.Entity;
+import javax.persistence.RollbackException;
 import java.util.List;
 
 public class SupplierManagementController {
@@ -62,10 +64,49 @@ public class SupplierManagementController {
         supplierList.getColumns().setAll(supplierNameCol, supplierIdCol, supplierEmailCol, supplierPhoneCol);
         supplierList.setItems(createSupplierList());
         supplierList.setEditable(true);
+
         supplierNameCol.setCellFactory(TextFieldTableCell.<Supplier>forTableColumn());
         supplierIdCol.setCellFactory(TextFieldTableCell.<Supplier, Integer>forTableColumn(new IntegerStringConverter()));
         supplierEmailCol.setCellFactory(TextFieldTableCell.<Supplier>forTableColumn());
         supplierPhoneCol.setCellFactory(TextFieldTableCell.<Supplier, Integer>forTableColumn(new IntegerStringConverter()));
+
+        supplierNameCol.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Supplier, String>>() {
+                    public void handle(TableColumn.CellEditEvent<Supplier, String> event) {
+                        event.getTableView().getItems().get(
+                                event.getTablePosition().getRow()
+                        ).setName(event.getNewValue());
+                    }
+                }
+        );
+
+        supplierIdCol.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Supplier, Integer>>() {
+                    public void handle(TableColumn.CellEditEvent<Supplier, Integer> event) {
+                        event.getTableView().getItems().get(
+                                event.getTablePosition().getRow()
+                        ).setId(event.getNewValue());
+                    }
+                }
+        );
+
+        supplierEmailCol.setOnEditCommit(
+                event -> {
+                    event.getTableView().getItems().get(
+                            event.getTablePosition().getRow()
+                    ).setEmail(event.getNewValue());
+                }
+        );
+
+        supplierPhoneCol.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Supplier, Integer>>() {
+                    public void handle(TableColumn.CellEditEvent<Supplier, Integer> event) {
+                        event.getTableView().getItems().get(
+                                event.getTablePosition().getRow()
+                        ).setPhoneNumber(event.getNewValue());
+                    }
+                }
+        );
     }
 
 //    public Supplier getSupplierById(int supplier_id){
@@ -90,6 +131,7 @@ public class SupplierManagementController {
 //            data.add(index, s);
 //            index++;
 //        }
+        session.close();
         return data;
     }
 
@@ -116,7 +158,7 @@ public class SupplierManagementController {
     public void onButtonEditSupplierClicked() {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        supplier = session.get(Supplier.class, Integer.parseInt(supplierId.getText()));
+        Supplier supplier = session.get(Supplier.class, Integer.parseInt(supplierId.getText()));
         supplier.setEmail(supplierEmail.getText());
         session.save(supplier);
         session.getTransaction().commit();
@@ -126,47 +168,7 @@ public class SupplierManagementController {
     public void onButtonEditSupplierTVClicked() {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-
-        supplierNameCol.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Supplier, String>>() {
-                    public void handle(TableColumn.CellEditEvent<Supplier, String> event) {
-                        ((Supplier) event.getTableView().getItems().get(
-                                event.getTablePosition().getRow())
-                        ).setName(event.getNewValue());
-                    }
-                }
-        );
-
-        supplierIdCol.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Supplier, Integer>>() {
-                    public void handle(TableColumn.CellEditEvent<Supplier, Integer> event) {
-                        ((Supplier) event.getTableView().getItems().get(
-                                event.getTablePosition().getRow())
-                        ).setId(event.getNewValue());
-                    }
-                }
-        );
-
-        supplierEmailCol.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Supplier, String>>() {
-                    public void handle(TableColumn.CellEditEvent<Supplier, String> event) {
-                        ((Supplier) event.getTableView().getItems().get(
-                                event.getTablePosition().getRow())
-                        ).setEmail(event.getNewValue());
-                    }
-                }
-        );
-
-        supplierPhoneCol.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Supplier, Integer>>() {
-                    public void handle(TableColumn.CellEditEvent<Supplier, Integer> event) {
-                        ((Supplier) event.getTableView().getItems().get(
-                                event.getTablePosition().getRow())
-                        ).setPhoneNumber(event.getNewValue());
-                    }
-                }
-        );
-
+        Supplier supplier = session.get(Supplier.class, Integer.parseInt(supplierId.getText()));
         session.save(supplier);
         session.getTransaction().commit();
         sessionFactory.close();
@@ -174,12 +176,22 @@ public class SupplierManagementController {
 
     //ok
     public void onButtonRemoveSupplierClicked() {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        supplier = session.get(Supplier.class, Integer.parseInt(supplierId.getText()));
-        session.delete(supplier);
-        session.getTransaction().commit();
-        sessionFactory.close();
+
+        ObservableList<Supplier> selectedItems = supplierList.getSelectionModel().getSelectedItems();
+        if (!selectedItems.isEmpty()){
+            try {
+                //Supplier supplier = session.get(Supplier.class, Integer.parseInt());
+                Session session = sessionFactory.openSession();
+                session.beginTransaction();
+                session.delete(selectedItems.get(0));
+                session.getTransaction().commit();
+                session.close();
+                supplierList.getItems().remove(selectedItems.get(0));
+            }
+            catch (HibernateException | RollbackException | IllegalStateException e){
+                //....
+            }
+        }
     }
 
 }
