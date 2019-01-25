@@ -2,6 +2,7 @@ package main.data;
 
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Entity
@@ -14,18 +15,18 @@ public class Supplier  {
     @Id
     @Column(name = "supplier_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "phone_number", nullable = false)
-    private int phoneNumber;
+    private Integer phoneNumber;
 
     public Supplier() {
     }
 
-    public Supplier(String name, int id, String email, int phoneNumber) {
+    public Supplier(String name, Integer id, String email, Integer phoneNumber) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -45,7 +46,7 @@ public class Supplier  {
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -61,7 +62,7 @@ public class Supplier  {
         this.email = email;
     }
 
-    public int getPhoneNumber() {
+    public Integer getPhoneNumber() {
         return phoneNumber;
     }
 

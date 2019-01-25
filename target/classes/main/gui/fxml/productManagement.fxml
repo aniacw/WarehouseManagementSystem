@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -39,6 +40,7 @@
                      <VBox.margin>
                         <Insets right="20.0" top="20.0" />
                      </VBox.margin></Button>
+                  <Button fx:id="addRowButton" mnemonicParsing="false" onAction="#onButtonAddRowClicked" text="+" />
                </children>
             </VBox>
             <TableView fx:id="productList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -55,11 +57,8 @@
             </TableView>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="search" promptText="search by supplier name">
-                     <HBox.margin>
-                        <Insets left="20.0" top="20.0" />
-                     </HBox.margin>
-                  </TextField>
+                  <ComboBox prefWidth="150.0" promptText="column" />
+                  <TextField fx:id="idSearch" promptText="search by SupplierID" />
                   <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClicked" text="Search">
                      <HBox.margin>
                         <Insets left="20.0" top="20.0" />
@@ -70,8 +69,6 @@
                         <Insets left="20.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <TextField fx:id="idSearch" promptText="search by SupplierID" />
-                  <Button mnemonicParsing="false" text="search" />
                </children>
             </HBox>
          </children>

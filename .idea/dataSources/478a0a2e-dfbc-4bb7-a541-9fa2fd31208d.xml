@@ -1211,64 +1211,68 @@
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="300" parent="281" name="FK6i174ixi9087gcvvut45em7fd">
-      <ColNames>supplier_id</ColNames>
+    <column id="300" parent="281" name="supplier_supplier_id">
+      <Position>6</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="301" parent="281" name="FKfykwav75w4qdtpmsag4a31m79">
+      <ColNames>supplier_supplier_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="301" parent="281" name="PRIMARY">
+    <key id="302" parent="281" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>product_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="302" parent="281" name="FK6i174ixi9087gcvvut45em7fd">
-      <ColNames>supplier_id</ColNames>
+    <foreign-key id="303" parent="281" name="FKfykwav75w4qdtpmsag4a31m79">
+      <ColNames>supplier_supplier_id</ColNames>
       <RefSchemaName>warehouse</RefSchemaName>
       <RefTableName>suppliers</RefTableName>
       <RefColNames>supplier_id</RefColNames>
-      <OnDelete>set-null</OnDelete>
     </foreign-key>
-    <column id="303" parent="282" name="product_id">
+    <column id="304" parent="282" name="product_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="304" parent="282" name="amount_on_stock">
+    <column id="305" parent="282" name="amount_on_stock">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="305" parent="282" name="to_be_ordered">
+    <column id="306" parent="282" name="to_be_ordered">
       <Position>3</Position>
       <DataType>varchar(3)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="306" parent="283" name="supplier_name">
+    <column id="307" parent="283" name="supplier_name">
       <Position>1</Position>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="307" parent="283" name="supplier_id">
+    <column id="308" parent="283" name="supplier_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="308" parent="283" name="email">
+    <column id="309" parent="283" name="email">
       <Position>3</Position>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="309" parent="283" name="phone_number">
+    <column id="310" parent="283" name="phone_number">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="310" parent="283" name="PRIMARY">
+    <key id="311" parent="283" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>supplier_id</ColNames>
       <Primary>1</Primary>

@@ -26,7 +26,8 @@ public class SupplierManagementController {
     Button
             addSupplierButton,
             editSupplierButton,
-            removeSupplierButton;
+            removeSupplierButton,
+            addRowButton;
 
     @FXML
     TextField
@@ -53,6 +54,7 @@ public class SupplierManagementController {
     Supplier supplier;
     SessionFactory sessionFactory;
     ObservableList<Supplier> data;
+    Supplier newSupplier;
 
     public void initialize() {
         sessionFactory = Sessions.getSessionFactory();
@@ -63,12 +65,13 @@ public class SupplierManagementController {
         supplierPhoneCol.setCellValueFactory(new PropertyValueFactory<Supplier, Integer>("phoneNumber"));
         supplierList.getColumns().setAll(supplierNameCol, supplierIdCol, supplierEmailCol, supplierPhoneCol);
         supplierList.setItems(createSupplierList());
-        supplierList.setEditable(true);
 
         supplierNameCol.setCellFactory(TextFieldTableCell.<Supplier>forTableColumn());
         supplierIdCol.setCellFactory(TextFieldTableCell.<Supplier, Integer>forTableColumn(new IntegerStringConverter()));
         supplierEmailCol.setCellFactory(TextFieldTableCell.<Supplier>forTableColumn());
         supplierPhoneCol.setCellFactory(TextFieldTableCell.<Supplier, Integer>forTableColumn(new IntegerStringConverter()));
+
+        supplierList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         supplierNameCol.setOnEditCommit(
                 new EventHandler<TableColumn.CellEditEvent<Supplier, String>>() {
@@ -107,15 +110,10 @@ public class SupplierManagementController {
                     }
                 }
         );
+
+        supplierList.setEditable(true);
     }
 
-//    public Supplier getSupplierById(int supplier_id){
-//        Session sess = sessionFactory.openSession();
-//        supplier = sess.get(Supplier.class, supplier_id);
-//        Hibernate.initialize(supplier);
-//        sess.close();
-//        return supplier;
-//    }
 
     @SuppressWarnings("unchecked")
     public ObservableList<Supplier> createSupplierList() {
@@ -123,19 +121,14 @@ public class SupplierManagementController {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List<Supplier> suppliers = session.createQuery("from Supplier").list();
-     //   data = FXCollections.observableArrayList(suppliers);
-        for(Supplier s : suppliers)
+        //   data = FXCollections.observableArrayList(suppliers);
+        for (Supplier s : suppliers)
             data.add(s);
-//        int index = 0;
-//        for(Supplier s : suppliers) {
-//            data.add(index, s);
-//            index++;
-//        }
         session.close();
         return data;
     }
 
-    //OK. Wpisywanie danych w textfieldy
+    //OK. Wpisywanie danych w textfieldy - nie przypisane do buttona
     public void onButtonAddSupplierClicked() {
         supplier = new Supplier(
                 supplierName.getText(),
@@ -150,48 +143,81 @@ public class SupplierManagementController {
         sessionFactory.close();
     }
 
-    public void onButtonAddSupplierTVClicked() {
-
-    }
-
-    // ok
-    public void onButtonEditSupplierClicked() {
+    //ok
+    public void onButtonAddRowClicked() {
+        newSupplier = new Supplier("", 0, "", 0);
+        supplierList.getItems().add(newSupplier);
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        Supplier supplier = session.get(Supplier.class, Integer.parseInt(supplierId.getText()));
-        supplier.setEmail(supplierEmail.getText());
-        session.save(supplier);
+        session.save(newSupplier);
+        session.getTransaction().commit();
+    }
+
+    //ok
+    public void onButtonAddSupplierTVClicked() {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+
+        supplierNameCol.setOnEditCommit(
+                event -> event.getTableView().getItems().get(
+                        event.getTablePosition().getRow()
+                ).setName(event.getNewValue())
+        );
+
+        supplierEmailCol.setOnEditCommit(
+                event -> event.getTableView().getItems().get(
+                        event.getTablePosition().getRow()
+                ).setEmail(event.getNewValue())
+        );
+
+        supplierPhoneCol.setOnEditCommit(
+                event -> event.getTableView().getItems().get(
+                        event.getTablePosition().getRow()
+                ).setPhoneNumber(event.getNewValue())
+        );
+
+        session.save(newSupplier);
         session.getTransaction().commit();
         sessionFactory.close();
     }
 
-    public void onButtonEditSupplierTVClicked() {
+    // ok. Nieprzypisane do buttona
+    public void onButtonEditSupplierClicked() {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         Supplier supplier = session.get(Supplier.class, Integer.parseInt(supplierId.getText()));
+        supplier.setName(supplierEmail.getText());
+        supplier.setEmail(supplierEmail.getText());
+        supplier.setPhoneNumber(Integer.parseInt(supplierPhone.getText()));
         session.save(supplier);
         session.getTransaction().commit();
         sessionFactory.close();
     }
 
     //ok
-    public void onButtonRemoveSupplierClicked() {
+    public void onButtonEditSupplierTVClicked() {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.save(supplier);
+        session.getTransaction().commit();
+        sessionFactory.close();
+    }
 
+    //ok uzupelnic catch
+    public void onButtonRemoveSupplierClicked() {
         ObservableList<Supplier> selectedItems = supplierList.getSelectionModel().getSelectedItems();
-        if (!selectedItems.isEmpty()){
+        if (!selectedItems.isEmpty()) {
             try {
-                //Supplier supplier = session.get(Supplier.class, Integer.parseInt());
                 Session session = sessionFactory.openSession();
                 session.beginTransaction();
-                session.delete(selectedItems.get(0));
+                for (Supplier selected : selectedItems)
+                    session.delete(selected);
                 session.getTransaction().commit();
                 session.close();
                 supplierList.getItems().remove(selectedItems.get(0));
-            }
-            catch (HibernateException | RollbackException | IllegalStateException e){
+            } catch (HibernateException | RollbackException | IllegalStateException e) {
                 //....
             }
         }
     }
-
 }

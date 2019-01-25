@@ -1,8 +1,5 @@
 package main.data;
 
-
-import javafx.util.converter.IntegerStringConverter;
-
 import javax.persistence.*;
 
 @Entity
@@ -26,7 +23,8 @@ public class Product {
     private Integer supplierId;
 
     @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(referencedColumnName = "supplier_id", insertable = true, updatable = true, nullable = false)
+    @JoinColumn(referencedColumnName = "supplier_id", insertable = true, updatable = true, nullable = true)
+    //nullabel false bylo. not-null property references a null or transient value
     private Supplier supplier;
 
     public Product() {

@@ -48,9 +48,8 @@ public class CSVLoader {
         String header = scanner.nextLine();
         String front = "INSERT INTO " + tablename + "(" + header + ") (";
         session.beginTransaction();
-        while (scanner.hasNext()) {
+        while (scanner.hasNext())
             session.createQuery(front + scanner.nextLine() + ")").executeUpdate();
-        }
         session.getTransaction().commit();
     }
 
