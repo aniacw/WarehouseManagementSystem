@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.gui.ProductManagementController">
    <children>
@@ -40,14 +41,20 @@
                      <VBox.margin>
                         <Insets right="20.0" top="20.0" />
                      </VBox.margin></Button>
-                  <Button fx:id="addRowButton" mnemonicParsing="false" onAction="#onButtonAddRowClicked" text="+" />
+                  <Button fx:id="addRowButton" mnemonicParsing="false" onAction="#onButtonAddRowClicked" text="+">
+                     <VBox.margin>
+                        <Insets top="180.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Button>
                </children>
             </VBox>
             <TableView fx:id="productList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
               <columns>
                 <TableColumn fx:id="productIdCol" prefWidth="98.0" text="product_id" />
-                <TableColumn fx:id="productNameCol" prefWidth="312.0" text="name" />
-                  <TableColumn fx:id="productCategoryCol" prefWidth="68.0" text="category" />
+                <TableColumn fx:id="productNameCol" prefWidth="248.0" text="name" />
+                  <TableColumn fx:id="productCategoryCol" prefWidth="132.0" text="category" />
                   <TableColumn fx:id="productPriceCol" prefWidth="110.0" text="unit-price" />
                   <TableColumn fx:id="productSupplierIdCol" prefWidth="88.0" text="supplier_id" />
               </columns>
@@ -57,8 +64,14 @@
             </TableView>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ComboBox prefWidth="150.0" promptText="column" />
-                  <TextField fx:id="idSearch" promptText="search by SupplierID" />
+                  <ComboBox fx:id="columnNamesCombobox" prefWidth="150.0" promptText="column">
+                     <HBox.margin>
+                        <Insets left="20.0" top="20.0" />
+                     </HBox.margin></ComboBox>
+                  <TextField fx:id="idSearch" promptText="search by whatever">
+                     <HBox.margin>
+                        <Insets left="20.0" top="20.0" />
+                     </HBox.margin></TextField>
                   <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClicked" text="Search">
                      <HBox.margin>
                         <Insets left="20.0" top="20.0" />

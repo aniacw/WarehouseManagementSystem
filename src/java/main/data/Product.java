@@ -2,27 +2,33 @@ package main.data;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "products")
 public class Product {
     @Id
     @Column(name = "product_id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ColumnNameAnnotation(name = "id" )
     private Integer id;
 
     @Column(name = "product_name", nullable = false)
+    @ColumnNameAnnotation(name = "name" )
     private String name;
 
     @Column(name = "category", nullable = false)
+    @ColumnNameAnnotation(name = "category" )
     private String category;
 
     @Column(name = "unit_price", nullable = false, precision = 8, scale = 2)
+    @ColumnNameAnnotation(name = "unitPrice" )
     private Double unitPrice;
 
     @Column(name = "supplier_id", nullable = true)
+    @ColumnNameAnnotation(name = "supplierId" )
     private Integer supplierId;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "supplier_id", insertable = true, updatable = true, nullable = true)
     //nullabel false bylo. not-null property references a null or transient value
     private Supplier supplier;
@@ -63,7 +69,7 @@ public class Product {
         this.category = category;
     }
 
-    public double getUnitPrice() {
+    public Double getUnitPrice() {
         return unitPrice;
     }
 

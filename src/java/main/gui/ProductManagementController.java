@@ -8,6 +8,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
+import main.data.ColumnNameAnnotation;
 import main.data.Product;
 import javafx.fxml.FXML;
 import main.data.Supplier;
@@ -55,22 +56,28 @@ public class ProductManagementController {
     TextField
             idSearch;
 
+    @FXML
+    ComboBox<String>
+            columnNamesCombobox;
+
     Product product;
     SessionFactory sessionFactory;
     ObservableList<Product> data;
     Product newProduct;
+    List<String> columnNames;
 
 
     private List<String> productColumnNames() {
-        Field[] fields = Product.class.getFields();
-        ArrayList<String> columnNames = new ArrayList<>(fields.length);
+        Field[] fields = Product.class.getDeclaredFields();
+        columnNames = new ArrayList<>(fields.length);
+
         for (Field f : fields) {
-            Column columnAnnotation = f.getAnnotation(Column.class);
+            f.setAccessible(true);
+            ColumnNameAnnotation columnAnnotation = f.getAnnotation(ColumnNameAnnotation.class);
             columnNames.add(columnAnnotation.name());
         }
         return columnNames;
     }
-
 
     public void initialize() {
         sessionFactory = Sessions.getSessionFactory();
@@ -126,6 +133,10 @@ public class ProductManagementController {
         );
 
         productList.setEditable(true);
+
+//        productColumnNames();
+//        for(String columns : columnNames)
+//            columnNamesCombobox.getItems().add(columns);
     }
 
 
@@ -140,9 +151,6 @@ public class ProductManagementController {
     }
 
     public void onSearchButtonClicked() {
-        //Session session = sessionFactory.getCurrentSession();
-        //session.beginTransaction();
-
         String idText = idSearch.getText();
         if (idText.isEmpty()) {
             productList.setItems(data.filtered(
@@ -155,22 +163,15 @@ public class ProductManagementController {
                         return pid != null && pid.equals(id);
                     }));
         }
-
-
         //List<Product> productsFoundList = new ArrayList<Product>();
         //Product productsFound = session.get(Product.class, id);
-
-
-        //session.save(product);
-        //session.getTransaction().commit();
-        //sessionFactory.close();
     }
 
     public void onRefreshButtonClicked() {
     }
 
     public void onButtonAddRowClicked() {
-        newProduct = new Product(0,"", "", 0, 0);
+        newProduct = new Product(0, "", "", 0, 0);
         productList.getItems().add(newProduct);
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
@@ -228,14 +229,14 @@ public class ProductManagementController {
             try {
                 Session session = sessionFactory.openSession();
                 session.beginTransaction();
+
                 for (Product selected : selectedItems)
                     session.delete(selected);
+                for (int i = 0; i < selectedItems.size(); i++)
+                    productList.getItems().remove(selectedItems.get(i));
+
                 session.getTransaction().commit();
                 session.close();
-
-                for(int i = 0; i < selectedItems.size(); i++)
-                     productList.getItems().remove(selectedItems.get(i));
-
             } catch (HibernateException | RollbackException | IllegalStateException e) {
                 //....
             }

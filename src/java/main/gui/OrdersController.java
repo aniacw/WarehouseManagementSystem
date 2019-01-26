@@ -19,11 +19,11 @@ public class OrdersController {
     @FXML
     Stage stage;
 
-    public void initialize(){
+    public void initialize() {
         stage = new Stage();
     }
 
-    public void onButtonSearchOrderClicked(){
+    public void onButtonSearchOrderClicked() {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("fxml/orderSearch.fxml"));
@@ -35,7 +35,7 @@ public class OrdersController {
         }
     }
 
-    public void onButtonPlaceOrderClicked(){
+    public void onButtonPlaceOrderClicked() {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("fxml/orderPlace.fxml"));
@@ -46,6 +46,4 @@ public class OrdersController {
             e.printStackTrace();
         }
     }
-
-
 }

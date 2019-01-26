@@ -1,52 +1,46 @@
 package main;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.data.CSVLoader;
-import main.data.Supplier;
-import main.factory.Sessions;
-import main.gui.SupplierManagementController;
-import org.hibernate.*;
-import org.hibernate.boot.spi.SessionFactoryOptions;
-import org.hibernate.engine.spi.FilterDefinition;
-import org.hibernate.metadata.ClassMetadata;
-import org.hibernate.metadata.CollectionMetadata;
-import org.hibernate.stat.Statistics;
+import main.data.ColumnNameAnnotation;
+import main.data.Product;
 
-import javax.naming.NamingException;
-import javax.naming.Reference;
-import javax.persistence.EntityGraph;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceUnitUtil;
-import javax.persistence.SynchronizationType;
-import javax.persistence.criteria.CriteriaBuilder;
-import java.net.URL;
-import java.sql.Connection;
+import javax.persistence.Column;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-//       CSVLoader.loadProductsTable("C:\\Users\\Ania\\IdeaProjects\\WarehouseManagementSystem\\src\\res\\WarehouseDBItems.csv");
-         URL url = getClass().getResource("src/res/gui/fxml/mainGui.fxml");
+        //  CSVLoader.loadProductsTable("C:\\Users\\Ania\\IdeaProjects\\WarehouseManagementSystem\\src\\res\\WarehouseDBItems.csv");
+        //  URL url = getClass().getResource("src/res/gui/fxml/mainGui.fxml");
         Parent root = FXMLLoader.load(getClass().getResource("gui/fxml/mainGui.fxml"));
         primaryStage.setTitle("Warehouse Management");
         primaryStage.setScene(new Scene(root, 1000, 700));
         primaryStage.show();
-  //     CSVLoader.loadSuppliersTable("C:\\Users\\Ania\\IdeaProjects\\WarehouseManagementSystem\\src\\res\\WarehouseDBSuppliers.csv");
+        //  CSVLoader.loadSuppliersTable("C:\\Users\\Ania\\IdeaProjects\\WarehouseManagementSystem\\src\\res\\WarehouseDBSuppliers.csv");
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
         launch(args);
+//
+//        List<String> columnNames;
+//        Field[] fields = Product.class.getDeclaredFields();
+//        columnNames = new ArrayList<>(fields.length);
+//
+//        for (Field f : fields) {
+//            f.setAccessible(true);
+//            ColumnNameAnnotation columnAnnotation = f.getAnnotation(ColumnNameAnnotation.class);
+//            columnNames.add(columnAnnotation.name());
+//        }
+//        System.out.println(fields);
     }
 }
