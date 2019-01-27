@@ -67,8 +67,11 @@
       </GridPane>
       <TableView fx:id="orderList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="orderNoCol" prefWidth="75.0" />
+          <TableColumn fx:id="orderStatusCol" prefWidth="75.0" text="C2" />
+            <TableColumn fx:id="orderTotalValueCol" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="orderSupplierIdCol" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="orderDateCol" prefWidth="75.0" text="Column X" />
         </columns>
          <GridPane.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
