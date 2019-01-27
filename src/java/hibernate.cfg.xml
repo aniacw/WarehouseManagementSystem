@@ -19,5 +19,6 @@
         <!-- Mapping with model class containing annotations -->
         <mapping class="main.data.Product"/>
         <mapping class="main.data.Supplier"/>
+        <mapping class="main.data.Order"/>
     </session-factory>
 </hibernate-configuration>

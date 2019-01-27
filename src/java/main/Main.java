@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.data.CSVLoader;
 import main.data.ColumnNameAnnotation;
 import main.data.Product;
 
@@ -26,6 +27,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 1000, 700));
         primaryStage.show();
         //  CSVLoader.loadSuppliersTable("C:\\Users\\Ania\\IdeaProjects\\WarehouseManagementSystem\\src\\res\\WarehouseDBSuppliers.csv");
+        //CSVLoader.loadOrdersTable("C:\\Users\\Ania\\IdeaProjects\\WarehouseManagementSystem\\src\\res\\WarehouseDBOrders.csv");
     }
 
 
