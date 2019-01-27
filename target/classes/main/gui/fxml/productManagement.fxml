@@ -68,11 +68,11 @@
                      <HBox.margin>
                         <Insets left="20.0" top="20.0" />
                      </HBox.margin></ComboBox>
-                  <TextField fx:id="idSearch" promptText="search by whatever">
+                  <TextField fx:id="search" promptText="search by whatever">
                      <HBox.margin>
                         <Insets left="20.0" top="20.0" />
                      </HBox.margin></TextField>
-                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClicked" text="Search">
+                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClicked2" text="Search">
                      <HBox.margin>
                         <Insets left="20.0" top="20.0" />
                      </HBox.margin>

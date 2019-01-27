@@ -16,6 +16,7 @@ import main.factory.Sessions;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import javax.persistence.Column;
 import javax.persistence.RollbackException;
@@ -54,7 +55,7 @@ public class ProductManagementController {
 
     @FXML
     TextField
-            idSearch;
+            search;
 
     @FXML
     ComboBox<String>
@@ -73,8 +74,7 @@ public class ProductManagementController {
 
         for (Field f : fields) {
             f.setAccessible(true);
-            ColumnNameAnnotation columnAnnotation = f.getAnnotation(ColumnNameAnnotation.class);
-            columnNames.add(columnAnnotation.name());
+            columnNames.add(f.getName());
         }
         return columnNames;
     }
@@ -134,10 +134,11 @@ public class ProductManagementController {
 
         productList.setEditable(true);
 
-//        productColumnNames();
-//        for(String columns : columnNames)
-//            columnNamesCombobox.getItems().add(columns);
+        productColumnNames();
+        for(String columns : columnNames)
+            columnNamesCombobox.getItems().add(columns);
     }
+
 
 
     public ObservableList<Product> createProductList() {
@@ -150,13 +151,31 @@ public class ProductManagementController {
         return data;
     }
 
+    public void onSearchButtonClicked2() {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+
+        String selectedAttribute = columnNamesCombobox.getSelectionModel().getSelectedItem();
+        String searchByInput = search.getText();
+
+
+        List<Product> productList = session.createQuery("from Product where name='A7'").list();
+        data.setAll(productList);
+
+        session.save(productList);
+        session.getTransaction().commit();
+        sessionFactory.close();
+    }
+
+
+
     public void onSearchButtonClicked() {
-        String idText = idSearch.getText();
+        String idText = search.getText();
         if (idText.isEmpty()) {
             productList.setItems(data.filtered(
                     p -> p.getSupplierId() == null));
         } else {
-            int id = Integer.parseInt(idSearch.getText());
+            int id = Integer.parseInt(search.getText());
             productList.setItems(data.filtered(
                     p -> {
                         Integer pid = p.getSupplierId();

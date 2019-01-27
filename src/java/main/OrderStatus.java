@@ -1,6 +1,9 @@
 package main;
 
 public enum OrderStatus {
+
+    //PENDING, COMPLETED, CANCELLED;
+
     PENDING("pending"),
     COMPLETED("completed"),
     CANCELLED("cancelled");

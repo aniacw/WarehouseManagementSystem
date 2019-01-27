@@ -28,10 +28,11 @@ public class Main extends Application {
         primaryStage.show();
         //  CSVLoader.loadSuppliersTable("C:\\Users\\Ania\\IdeaProjects\\WarehouseManagementSystem\\src\\res\\WarehouseDBSuppliers.csv");
         //CSVLoader.loadOrdersTable("C:\\Users\\Ania\\IdeaProjects\\WarehouseManagementSystem\\src\\res\\WarehouseDBOrders.csv");
+   //     CSVLoader.loadOrdersTable("C:\\Users\\Ania\\IdeaProjects\\WarehouseManagementSystem\\src\\res\\WarehouseDBOrderedItems.csv");
     }
 
 
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) {
         launch(args);
 //
 //        List<String> columnNames;

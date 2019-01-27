@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -63,6 +64,7 @@
                </GridPane.margin>
             </Button>
             <Button fx:id="showAllOrdersButton" mnemonicParsing="false" onAction="#onButtonShowAllOrdersClicked" text="Show All Orders" GridPane.columnIndex="3" />
+            <ListView fx:id="tempListViev" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <TableView fx:id="orderList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">

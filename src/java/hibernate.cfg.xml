@@ -20,5 +20,6 @@
         <mapping class="main.data.Product"/>
         <mapping class="main.data.Supplier"/>
         <mapping class="main.data.Order"/>
+        <mapping class="main.data.OrderedItems"/>
     </session-factory>
 </hibernate-configuration>

@@ -10,7 +10,6 @@ import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -136,6 +135,33 @@ public class CSVLoader {
     public static void loadOrdersTable(String filename) throws FileNotFoundException, ParseException, NumberFormatException {
         Session session = Sessions.getSessionFactory().openSession();
         loadOrdersTable(filename, session);
+        session.close();
+    }
+
+
+    public static void loadOrderedItemsTable(String filename, Session session) throws FileNotFoundException {
+        File file = new File(filename);
+        FileInputStream stream = new FileInputStream(file);
+        Scanner scanner = new Scanner(stream);
+        scanner.nextLine();
+        session.beginTransaction();
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            String[] fields = line.split(",");
+            OrderedItems oi = new OrderedItems(
+                    Integer.parseInt(fields[0]),
+                    Integer.parseInt(fields[1]),
+                    Integer.parseInt(fields[2]),
+                    Double.parseDouble(fields[3]),
+                    Double.parseDouble(fields[4]));
+            session.save(oi);
+        }
+        session.getTransaction().commit();
+    }
+
+    public static void loadOrderedItemsTable(String filename) throws FileNotFoundException {
+        Session session = Sessions.getSessionFactory().openSession();
+        loadOrderedItemsTable(filename, session);
         session.close();
     }
 }
