@@ -8,7 +8,8 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.DateStringConverter;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
-import main.EnumConverter;
+import main.ConverterEnum;
+
 import main.OrderStatus;
 import main.data.Order;
 import javafx.fxml.FXML;
@@ -72,7 +73,7 @@ public class OrderSearchController {
         orderList.getColumns().setAll(orderNoCol, orderStatusCol, orderTotalValueCol, orderSupplierIdCol, orderDateCol);
 
         orderNoCol.setCellFactory(TextFieldTableCell.<Order, Integer>forTableColumn(new IntegerStringConverter()));
-        orderStatusCol.setCellFactory(TextFieldTableCell.<Order, OrderStatus>forTableColumn(new EnumConverter()));
+       // orderStatusCol.setCellFactory(TextFieldTableCell.<Order, OrderStatus>forTableColumn(new ConverterEnum()));
         orderTotalValueCol.setCellFactory(TextFieldTableCell.<Order, Double>forTableColumn(new DoubleStringConverter()));
         orderSupplierIdCol.setCellFactory(TextFieldTableCell.<Order, Integer>forTableColumn(new IntegerStringConverter()));
         orderDateCol.setCellFactory(TextFieldTableCell.<Order, Date>forTableColumn(new DateStringConverter()));

@@ -2,20 +2,20 @@ package main;
 
 public enum OrderStatus {
 
-    //PENDING, COMPLETED, CANCELLED;
+    PENDING, COMPLETED, CANCELLED;
 
-    PENDING("pending"),
-    COMPLETED("completed"),
-    CANCELLED("cancelled");
+//    PENDING("pending"),
+//    COMPLETED("completed"),
+//    CANCELLED("cancelled");
 
-    private String name;
+//    private String name;
+//
+//    public String getName() {
+//        return name;
+//    }
 
-    public String getName() {
-        return name;
-    }
-
-     OrderStatus(String name) {
-        this.name = name;
-    }
+//     OrderStatus(String name) {
+//        this.name = name;
+//    }
 
 }

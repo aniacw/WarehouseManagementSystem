@@ -1,5 +1,6 @@
 package main.data;
 
+import main.ConverterEnum;
 import main.OrderStatus;
 
 import javax.persistence.*;
@@ -14,7 +15,8 @@ public class Order {
     @Column(name = "order_no", unique = true, nullable = false)
     private Integer orderNumber;
 
-    @Enumerated(EnumType.STRING)
+    //@Enumerated(EnumType.STRING)
+    @Convert(converter = ConverterEnum.class)
     @Column(name = "order_status", nullable = false)
     private OrderStatus status;
 
