@@ -3,11 +3,12 @@ package main.data;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "suppliers")
-public class Supplier  {
+public class Supplier implements Serializable {
 
     @Column(name = "supplier_name", nullable = false)
     private String name;
@@ -34,7 +35,7 @@ public class Supplier  {
     }
 
     @OneToMany(mappedBy = "supplier",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH},
+            cascade = {CascadeType.ALL},
             fetch = FetchType.EAGER)
     private List<Product> products;
 
@@ -80,12 +81,13 @@ public class Supplier  {
 
     @Override
     public String toString() {
-        return "Supplier{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                ", email='" + email + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", products=" + products +
-                '}';
+        return name;
+//        return "Supplier{" +
+//                "name='" + name + '\'' +
+//                ", id=" + id +
+//                ", email='" + email + '\'' +
+//                ", phoneNumber=" + phoneNumber +
+//                ", products=" + products +
+//                '}';
     }
 }

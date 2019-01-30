@@ -1,12 +1,13 @@
 package main.data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "ordered_items")
-public class OrderedItems {
+public class OrderedItems implements Serializable {
 
-    @Id
+    //@Id
     @Column(name = "order_id")
     private Integer orderId;
 

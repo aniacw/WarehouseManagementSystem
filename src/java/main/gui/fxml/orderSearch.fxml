@@ -69,11 +69,11 @@
       </GridPane>
       <TableView fx:id="orderList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
         <columns>
-          <TableColumn fx:id="orderNoCol" prefWidth="75.0" />
-          <TableColumn fx:id="orderStatusCol" prefWidth="75.0" text="C2" />
-            <TableColumn fx:id="orderTotalValueCol" prefWidth="75.0" text="Column X" />
-            <TableColumn fx:id="orderSupplierIdCol" prefWidth="75.0" text="Column X" />
-            <TableColumn fx:id="orderDateCol" prefWidth="75.0" text="Column X" />
+          <TableColumn fx:id="orderNoCol" prefWidth="75.0" text="order_no" />
+          <TableColumn fx:id="orderStatusCol" prefWidth="108.0" text="order_status" />
+            <TableColumn fx:id="orderTotalValueCol" prefWidth="143.0" text="total_order_value" />
+            <TableColumn fx:id="orderSupplierIdCol" prefWidth="109.0" text="supplier_id" />
+            <TableColumn fx:id="orderDateCol" prefWidth="163.0" text="order_date" />
         </columns>
          <GridPane.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

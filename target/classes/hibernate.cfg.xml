@@ -21,6 +21,6 @@
         <mapping class="main.data.Supplier"/>
         <mapping class="main.data.Order"/>
         <mapping class="main.data.OrderedItems"/>
-        <mapping class="main.Converter"/>
+        <mapping class="main.ConverterEnum"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,10 +1,11 @@
 package main.data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product implements Serializable {
 
     @Id
     @Column(name = "product_id", unique = true, nullable = false)
@@ -28,8 +29,8 @@ public class Product {
     @ColumnNameAnnotation(name = "supplierId" )
     private Integer supplierId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(referencedColumnName = "supplier_id", insertable = true, updatable = true, nullable = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "supplier_id", insertable = false, updatable = false, nullable = true)
     //nullabel false bylo. not-null property references a null or transient value
     private Supplier supplier;
 

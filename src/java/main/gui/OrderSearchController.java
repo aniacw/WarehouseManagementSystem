@@ -61,6 +61,7 @@ public class OrderSearchController {
     ObservableList<Order> data;
     SessionFactory sessionFactory;
     OrderStatus orderStatus;
+    ConverterEnum converterEnum;
 
     public void initialize() {
         sessionFactory = Sessions.getSessionFactory();
@@ -73,7 +74,7 @@ public class OrderSearchController {
         orderList.getColumns().setAll(orderNoCol, orderStatusCol, orderTotalValueCol, orderSupplierIdCol, orderDateCol);
 
         orderNoCol.setCellFactory(TextFieldTableCell.<Order, Integer>forTableColumn(new IntegerStringConverter()));
-       // orderStatusCol.setCellFactory(TextFieldTableCell.<Order, OrderStatus>forTableColumn(new ConverterEnum()));
+        //orderStatusCol.setCellFactory(TextFieldTableCell.<Order, OrderStatus>forTableColumn(new ConverterEnum()));
         orderTotalValueCol.setCellFactory(TextFieldTableCell.<Order, Double>forTableColumn(new DoubleStringConverter()));
         orderSupplierIdCol.setCellFactory(TextFieldTableCell.<Order, Integer>forTableColumn(new IntegerStringConverter()));
         orderDateCol.setCellFactory(TextFieldTableCell.<Order, Date>forTableColumn(new DateStringConverter()));

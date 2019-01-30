@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.StringConverter;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import main.data.ColumnNameAnnotation;
@@ -22,7 +23,9 @@ import javax.persistence.Column;
 import javax.persistence.RollbackException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class ProductManagementController {
 
@@ -54,6 +57,10 @@ public class ProductManagementController {
             productPriceCol;
 
     @FXML
+    TableColumn<Product, Supplier>
+            productSupplierNameCol;
+
+    @FXML
     TextField
             search;
 
@@ -66,17 +73,108 @@ public class ProductManagementController {
     ObservableList<Product> data;
     Product newProduct;
     List<String> columnNames;
+    String searchByInput;
+    Integer parsedInput;
+    HashMap<String, Field> productSQLColumnToFields;
 
 
     private List<String> productColumnNames() {
         Field[] fields = Product.class.getDeclaredFields();
-        columnNames = new ArrayList<>(fields.length);
+        productSQLColumnToFields=new HashMap<String, Field>();
 
+        columnNames = new ArrayList<>(fields.length);
         for (Field f : fields) {
             f.setAccessible(true);
-            columnNames.add(f.getName());
+            Column column = f.getAnnotation(Column.class);
+            if (column != null) {
+                columnNames.add(column.name());
+                productSQLColumnToFields.put(column.name(), f);
+            }
         }
         return columnNames;
+    }
+
+//    public void checkInputType(String input){
+//        if (Integer.parseInt(input) instanceof Integer)
+//            parsedInput = Integer.parseInt(input)
+//        else {
+//
+//        }
+//
+//    }
+
+    public void onSearchButtonClicked2() {
+        String selectedColumn = columnNamesCombobox.getSelectionModel().getSelectedItem();
+        String searchInput = search.getText();
+        //String temp;
+        Field selectedField = productSQLColumnToFields.get(selectedColumn);
+
+       // String param = "product." + selectedColumn;
+
+       // Session session = sessionFactory.getCurrentSession();
+        //session.beginTransaction();
+
+//        List<Product> list = session.createQuery(
+//                //  "from Product as product where " + param + " = " + searchByInput).list();
+//                "from Product as product where product.name = : temp").setParameter("temp", searchByInput).list();
+//        data.setAll(list);
+        if (selectedField.getType().getSuperclass().equals(Number.class)){
+            String[] parts = searchInput.split("\\s*-\\s*");
+            if (parts.length == 1){
+                double value = Double.parseDouble(parts[0]);
+                productList.setItems(data.filtered(product -> {
+                    try {
+                        return selectedField.get(product).equals(value);
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                        return false;
+                    }
+                }));
+//                ArrayList<Integer> a=new ArrayList<>();
+//                productList.setItems(data.filtered(new Predicate<Product>() {
+//                    @Override
+//                    public boolean test(Product product) {
+//
+//                        try {
+//                            return selectedField.get(product).equals(value);
+//                        } catch (IllegalAccessException e) {
+//                            e.printStackTrace();
+//                            return false;
+//                        }
+//                    }
+//                };
+            }
+            else if (parts.length == 2){
+                double min = Double.parseDouble(parts[0]);
+                double max = Double.parseDouble(parts[1]);
+                productList.setItems(data.filtered(product -> {
+                    try {
+                        Number fieldValue = (Number)selectedField.get(product);
+                        double d = fieldValue.doubleValue();
+                        return d >= min && d <= max;
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                        return false;
+                    }
+                }));
+            }
+            else{
+                //TODO: komunikat
+                return;
+            }
+        }
+        else {
+            productList.setItems(data.filtered(product -> {
+                try {
+                    Object fieldValue = selectedField.get(product);
+                    String fieldStr = fieldValue.toString();
+                    return fieldStr.toLowerCase().contains(searchInput.toLowerCase());
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }));
+        }
     }
 
     public void initialize() {
@@ -87,13 +185,28 @@ public class ProductManagementController {
         productCategoryCol.setCellValueFactory(new PropertyValueFactory<Product, String>("category"));
         productPriceCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("unitPrice"));
         productSupplierIdCol.setCellValueFactory(new PropertyValueFactory<Product, Integer>("supplierId"));
-//        productList.getColumns().setAll(productIdCol, productNameCol, productCategoryCol, productPriceCol, productSupplierIdCol);
+        productSupplierNameCol.setCellValueFactory(new PropertyValueFactory<Product, Supplier>("supplier"));
+        //productList.getColumns().setAll(productIdCol, productNameCol, productCategoryCol, productPriceCol, productSupplierIdCol, );
 
         productIdCol.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
         productNameCol.setCellFactory(TextFieldTableCell.<Product>forTableColumn());
         productCategoryCol.setCellFactory(TextFieldTableCell.<Product>forTableColumn());
         productPriceCol.setCellFactory(TextFieldTableCell.<Product, Double>forTableColumn(new DoubleStringConverter()));
         productSupplierIdCol.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
+        productSupplierNameCol.setCellFactory(TextFieldTableCell.<Product, Supplier>forTableColumn(new StringConverter<Supplier>() {
+            @Override
+            public String toString(Supplier object) {
+                if (object == null)
+                    return "OK";
+                else
+                    return object.getName();
+            }
+
+            @Override
+            public Supplier fromString(String string) {
+                return null;
+            }
+        }));
         productList.setItems(createProductList());
 
         productList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -135,11 +248,9 @@ public class ProductManagementController {
         productList.setEditable(true);
 
         productColumnNames();
-        for(String columns : columnNames)
+        for (String columns : columnNames)
             columnNamesCombobox.getItems().add(columns);
     }
-
-
 
     public ObservableList<Product> createProductList() {
         data = FXCollections.observableArrayList();
@@ -150,23 +261,6 @@ public class ProductManagementController {
             data.add(p);
         return data;
     }
-
-    public void onSearchButtonClicked2() {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-
-        String selectedAttribute = columnNamesCombobox.getSelectionModel().getSelectedItem();
-        String searchByInput = search.getText();
-
-
-        List<Product> productList = session.createQuery("from Product where name='A7'").list();
-        data.setAll(productList);
-
-        session.save(productList);
-        session.getTransaction().commit();
-        sessionFactory.close();
-    }
-
 
 
     public void onSearchButtonClicked() {
@@ -182,11 +276,10 @@ public class ProductManagementController {
                         return pid != null && pid.equals(id);
                     }));
         }
-        //List<Product> productsFoundList = new ArrayList<Product>();
-        //Product productsFound = session.get(Product.class, id);
     }
 
     public void onRefreshButtonClicked() {
+        productList.setItems(createProductList());
     }
 
     public void onButtonAddRowClicked() {
@@ -238,6 +331,7 @@ public class ProductManagementController {
         session.beginTransaction();
         session.save(product);
         session.getTransaction().commit();
+        session.close();
         sessionFactory.close();
     }
 

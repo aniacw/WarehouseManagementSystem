@@ -10,16 +10,15 @@ import static main.OrderStatus.PENDING;
 @Converter
 public class ConverterEnum implements AttributeConverter<OrderStatus, String> {
 
-
     @Override
     public String convertToDatabaseColumn(OrderStatus attribute) {
         switch (attribute) {
             case PENDING:
-                return "D";
+                return "PENDING";
             case COMPLETED:
-                return "H";
+                return "COMPLETED";
             case CANCELLED:
-                return "P";
+                return "CANCELLED";
             default:
                 throw new IllegalArgumentException("Unknown" + attribute);
         }
@@ -28,15 +27,14 @@ public class ConverterEnum implements AttributeConverter<OrderStatus, String> {
     @Override
     public OrderStatus convertToEntityAttribute(String dbData) {
         switch (dbData) {
-            case "D":
+            case "PENDING":
                 return PENDING;
-            case "H":
+            case "COMPLETED":
                 return COMPLETED;
-            case "P":
+            case "CANCELLED":
                 return CANCELLED;
             default:
                 throw new IllegalArgumentException("Unknown" + dbData);
         }
     }
 }
-
