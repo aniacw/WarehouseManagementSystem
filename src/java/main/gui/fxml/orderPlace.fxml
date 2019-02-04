@@ -2,7 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -23,8 +24,13 @@
    <children>
       <TableView fx:id="orderDraft" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="orderProductIdCol" prefWidth="109.99998474121094" text="product_id" />
+            <TableColumn fx:id="orderProductNameCol" prefWidth="75.0" text="product_name" />
+          <TableColumn fx:id="orderQuantityCol" prefWidth="88.0" text="quantity" />
+            <TableColumn fx:id="orderTotalItemValueCol" prefWidth="150.0" text="total_item_value" />
+            <TableColumn fx:id="orderDiscountCol" minWidth="0.0" prefWidth="100.0" text="discount" />
+            <TableColumn fx:id="orderSupplierIdCol" prefWidth="106.0" text="supplier_id" />
+            <TableColumn fx:id="orderSupplierNameCol" prefWidth="75.0" text="supplier_name" />
         </columns>
       </TableView>
       <GridPane>
@@ -38,10 +44,6 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="showLowStockButton" mnemonicParsing="false" onAction="#onButtonShowLowStockButtonClicked" prefWidth="108.0" text="Show Low on Stock" wrapText="true">
-                     <VBox.margin>
-                        <Insets left="20.0" top="20.0" />
-                     </VBox.margin></Button>
                   <Button fx:id="addToOrderLowStockButton" mnemonicParsing="false" onAction="#onButtonAddOrderLowStockButtonClicked" text="Add to Order">
                      <VBox.margin>
                         <Insets left="20.0" top="20.0" />
@@ -50,8 +52,10 @@
             </VBox>
             <TableView fx:id="lowStockTable" prefHeight="110.0" prefWidth="600.0" GridPane.columnIndex="1">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="lowStockProductIdCol" prefWidth="134.0" text="product_id" />
+                <TableColumn fx:id="lowStockProductNameCol" prefWidth="101.0" text="product_name" />
+                  <TableColumn fx:id="lowStockSupplierNameCol" prefWidth="134.0" text="supplier_name" />
+                  <TableColumn fx:id="lowStockPriceCol" prefWidth="118.0" text="price" />
               </columns>
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" top="20.0" />
@@ -61,9 +65,9 @@
       </GridPane>
       <GridPane GridPane.rowIndex="1">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="434.0" minWidth="10.0" prefWidth="253.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="618.0" minWidth="10.0" prefWidth="81.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="753.0" minWidth="10.0" prefWidth="360.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="434.0" minWidth="10.0" prefWidth="226.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="618.0" minWidth="10.0" prefWidth="123.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="753.0" minWidth="10.0" prefWidth="322.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="631.0" minWidth="10.0" prefWidth="220.0" />
         </columnConstraints>
         <rowConstraints>
@@ -72,21 +76,19 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ChoiceBox fx:id="suppliersComboBox" prefWidth="200.0">
-               <GridPane.margin>
-                  <Insets left="20.0" />
-               </GridPane.margin></ChoiceBox>
-            <ChoiceBox fx:id="productsComboBox" prefWidth="200.0" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="20.0" />
-               </GridPane.margin></ChoiceBox>
             <TextField fx:id="quantity" promptText="quantity..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="addToOrderFilteredButton" mnemonicParsing="false" onAction="#onButtonAddToOrderFilteredButton" text="Add to Order" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="addToOrderFilteredButton" mnemonicParsing="false" onAction="#onButtonAddToOrderClicked" text="Add to Order" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
             </Button>
             <Button fx:id="submitOrderButton" mnemonicParsing="false" onAction="#onButtonSubmiteOrderClicked" text="SUBMIT ORDER" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <ComboBox fx:id="suppliersComboBox" prefWidth="150.0" />
+            <ComboBox fx:id="productsComboBox" prefWidth="150.0" GridPane.rowIndex="1" />
+            <Label text="Total order value:" GridPane.rowIndex="2" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="prodNameTemp" promptText="product name" GridPane.columnIndex="1" />
+            <TextField fx:id="supplierNameTemp" promptText="supplier name" GridPane.columnIndex="2" />
          </children>
       </GridPane>
    </children>

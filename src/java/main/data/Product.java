@@ -10,29 +10,27 @@ public class Product implements Serializable {
     @Id
     @Column(name = "product_id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ColumnNameAnnotation(name = "id" )
     private Integer id;
 
     @Column(name = "product_name", nullable = false)
-    @ColumnNameAnnotation(name = "name" )
     private String name;
 
     @Column(name = "category", nullable = false)
-    @ColumnNameAnnotation(name = "category" )
     private String category;
 
     @Column(name = "unit_price", nullable = false, precision = 8, scale = 2)
-    @ColumnNameAnnotation(name = "unitPrice" )
     private Double unitPrice;
 
     @Column(name = "supplier_id", nullable = true)
-    @ColumnNameAnnotation(name = "supplierId" )
     private Integer supplierId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id", insertable = false, updatable = false, nullable = true)
     //nullabel false bylo. not-null property references a null or transient value
     private Supplier supplier;
+
+    @Column(name = "quantity_on_stock")
+    private Integer quantityOnStock;
 
     public Product() {
     }
@@ -92,5 +90,17 @@ public class Product implements Serializable {
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
+    }
+
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public Integer getQuantityOnStock() {
+        return quantityOnStock;
+    }
+
+    public void setQuantityOnStock(Integer quantityOnStock) {
+        this.quantityOnStock = quantityOnStock;
     }
 }

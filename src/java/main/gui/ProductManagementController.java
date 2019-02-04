@@ -2,14 +2,12 @@ package main.gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.StringConverter;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
-import main.data.ColumnNameAnnotation;
 import main.data.Product;
 import javafx.fxml.FXML;
 import main.data.Supplier;
@@ -17,7 +15,6 @@ import main.factory.Sessions;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 
 import javax.persistence.Column;
 import javax.persistence.RollbackException;
@@ -25,7 +22,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Predicate;
 
 public class ProductManagementController {
 
@@ -73,15 +69,12 @@ public class ProductManagementController {
     ObservableList<Product> data;
     Product newProduct;
     List<String> columnNames;
-    String searchByInput;
-    Integer parsedInput;
     HashMap<String, Field> productSQLColumnToFields;
 
 
     private List<String> productColumnNames() {
         Field[] fields = Product.class.getDeclaredFields();
-        productSQLColumnToFields=new HashMap<String, Field>();
-
+        productSQLColumnToFields = new HashMap<String, Field>();
         columnNames = new ArrayList<>(fields.length);
         for (Field f : fields) {
             f.setAccessible(true);
@@ -94,33 +87,19 @@ public class ProductManagementController {
         return columnNames;
     }
 
-//    public void checkInputType(String input){
-//        if (Integer.parseInt(input) instanceof Integer)
-//            parsedInput = Integer.parseInt(input)
-//        else {
-//
-//        }
-//
-//    }
 
     public void onSearchButtonClicked2() {
         String selectedColumn = columnNamesCombobox.getSelectionModel().getSelectedItem();
         String searchInput = search.getText();
-        //String temp;
         Field selectedField = productSQLColumnToFields.get(selectedColumn);
-
-       // String param = "product." + selectedColumn;
-
-       // Session session = sessionFactory.getCurrentSession();
-        //session.beginTransaction();
 
 //        List<Product> list = session.createQuery(
 //                //  "from Product as product where " + param + " = " + searchByInput).list();
 //                "from Product as product where product.name = : temp").setParameter("temp", searchByInput).list();
-//        data.setAll(list);
-        if (selectedField.getType().getSuperclass().equals(Number.class)){
+
+        if (selectedField.getType().getSuperclass().equals(Number.class)) {
             String[] parts = searchInput.split("\\s*-\\s*");
-            if (parts.length == 1){
+            if (parts.length == 1) {
                 double value = Double.parseDouble(parts[0]);
                 productList.setItems(data.filtered(product -> {
                     try {
@@ -143,13 +122,12 @@ public class ProductManagementController {
 //                        }
 //                    }
 //                };
-            }
-            else if (parts.length == 2){
+            } else if (parts.length == 2) {
                 double min = Double.parseDouble(parts[0]);
                 double max = Double.parseDouble(parts[1]);
                 productList.setItems(data.filtered(product -> {
                     try {
-                        Number fieldValue = (Number)selectedField.get(product);
+                        Number fieldValue = (Number) selectedField.get(product);
                         double d = fieldValue.doubleValue();
                         return d >= min && d <= max;
                     } catch (IllegalAccessException e) {
@@ -157,13 +135,11 @@ public class ProductManagementController {
                         return false;
                     }
                 }));
-            }
-            else{
+            } else {
                 //TODO: komunikat
                 return;
             }
-        }
-        else {
+        } else {
             productList.setItems(data.filtered(product -> {
                 try {
                     Object fieldValue = selectedField.get(product);
@@ -207,6 +183,7 @@ public class ProductManagementController {
                 return null;
             }
         }));
+
         productList.setItems(createProductList());
 
         productList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -261,7 +238,6 @@ public class ProductManagementController {
             data.add(p);
         return data;
     }
-
 
     public void onSearchButtonClicked() {
         String idText = search.getText();

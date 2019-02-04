@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Table(name = "ordered_items")
 public class OrderedItems implements Serializable {
 
-    //@Id
+
     @Column(name = "order_id")
     private Integer orderId;
 
@@ -23,15 +23,21 @@ public class OrderedItems implements Serializable {
     @Column(name = "total_item_value")
     private Double totalItemValue;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_order_id", unique = true, nullable = false)
+    private Integer productOrderId;
+
     public OrderedItems() {
     }
 
-    public OrderedItems(Integer orderId, Integer productId, Integer quantity, Double discount, Double totalItemValue) {
+    public OrderedItems(Integer orderId, Integer productId, Integer quantity, Double discount, Double totalItemValue, Integer productOrderId) {
         this.orderId = orderId;
         this.productId = productId;
         this.quantity = quantity;
         this.discount = discount;
         this.totalItemValue = totalItemValue;
+        this.productOrderId = productOrderId;
     }
 
     public Integer getOrderId() {
@@ -72,5 +78,13 @@ public class OrderedItems implements Serializable {
 
     public void setTotalItemValue(Double totalItemValue) {
         this.totalItemValue = totalItemValue;
+    }
+
+    public Integer getProductOrderId() {
+        return productOrderId;
+    }
+
+    public void setProductOrderId(Integer productOrderId) {
+        this.productOrderId = productOrderId;
     }
 }

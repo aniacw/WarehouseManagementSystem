@@ -153,7 +153,8 @@ public class CSVLoader {
                     Integer.parseInt(fields[1]),
                     Integer.parseInt(fields[2]),
                     Double.parseDouble(fields[3]),
-                    Double.parseDouble(fields[4]));
+                    Double.parseDouble(fields[4]),
+                    Integer.parseInt(fields[5]));
             session.save(oi);
         }
         session.getTransaction().commit();
