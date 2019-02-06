@@ -2,6 +2,7 @@ package main.data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "ordered_items")
@@ -27,6 +28,16 @@ public class OrderedItems implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_order_id", unique = true, nullable = false)
     private Integer productOrderId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", insertable = false, updatable = false, nullable = false)
+    private Order order;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", insertable = false, updatable = false, nullable = true)
+    private Product product;
+
 
     public OrderedItems() {
     }
@@ -87,4 +98,22 @@ public class OrderedItems implements Serializable {
     public void setProductOrderId(Integer productOrderId) {
         this.productOrderId = productOrderId;
     }
+
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
 }

@@ -5,7 +5,11 @@ import main.OrderStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 @Entity
 @Table(name = "orders")
@@ -29,6 +33,12 @@ public class Order implements Serializable {
 
     @Column(name = "order_date", nullable = false)
     private Date date;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderedItems> orderedItems;
+
+
+    static DateFormat string = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
 
     public Order() {
     }
@@ -80,4 +90,14 @@ public class Order implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
+
+
+    public List<OrderedItems> getOrderedItems() {
+        return orderedItems;
+    }
+
+    public void setOrderedItems(List<OrderedItems> orderedItems) {
+        this.orderedItems = orderedItems;
+    }
+
 }

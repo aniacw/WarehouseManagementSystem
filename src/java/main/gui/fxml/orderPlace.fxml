@@ -25,12 +25,9 @@
       <TableView fx:id="orderDraft" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
         <columns>
           <TableColumn fx:id="orderProductIdCol" prefWidth="109.99998474121094" text="product_id" />
-            <TableColumn fx:id="orderProductNameCol" prefWidth="75.0" text="product_name" />
-          <TableColumn fx:id="orderQuantityCol" prefWidth="88.0" text="quantity" />
-            <TableColumn fx:id="orderTotalItemValueCol" prefWidth="150.0" text="total_item_value" />
+          <TableColumn fx:id="orderQuantityCol" minWidth="9.0" prefWidth="65.0" text="quantity" />
+            <TableColumn fx:id="orderTotalItemValueCol" prefWidth="142.0" text="total_item_value" />
             <TableColumn fx:id="orderDiscountCol" minWidth="0.0" prefWidth="100.0" text="discount" />
-            <TableColumn fx:id="orderSupplierIdCol" prefWidth="106.0" text="supplier_id" />
-            <TableColumn fx:id="orderSupplierNameCol" prefWidth="75.0" text="supplier_name" />
         </columns>
       </TableView>
       <GridPane>
@@ -50,7 +47,7 @@
                      </VBox.margin></Button>
                </children>
             </VBox>
-            <TableView fx:id="lowStockTable" prefHeight="110.0" prefWidth="600.0" GridPane.columnIndex="1">
+            <TableView fx:id="supplierProducts" prefHeight="110.0" prefWidth="600.0" GridPane.columnIndex="1">
               <columns>
                 <TableColumn fx:id="lowStockProductIdCol" prefWidth="134.0" text="product_id" />
                 <TableColumn fx:id="lowStockProductNameCol" prefWidth="101.0" text="product_name" />
@@ -83,7 +80,7 @@
                </GridPane.margin>
             </Button>
             <Button fx:id="submitOrderButton" mnemonicParsing="false" onAction="#onButtonSubmiteOrderClicked" text="SUBMIT ORDER" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <ComboBox fx:id="suppliersComboBox" prefWidth="150.0" />
+            <ComboBox fx:id="suppliersComboBox" onAction="#onSuppliersSelected" prefWidth="150.0" />
             <ComboBox fx:id="productsComboBox" prefWidth="150.0" GridPane.rowIndex="1" />
             <Label text="Total order value:" GridPane.rowIndex="2" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
