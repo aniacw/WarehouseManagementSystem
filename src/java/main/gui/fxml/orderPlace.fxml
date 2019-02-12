@@ -17,18 +17,21 @@
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="162.0" minHeight="10.0" prefHeight="162.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="171.0" minHeight="10.0" prefHeight="135.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="204.0" minHeight="10.0" prefHeight="196.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="171.0" minHeight="10.0" prefHeight="101.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="231.0" minHeight="10.0" prefHeight="231.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <TableView fx:id="orderDraft" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
         <columns>
-          <TableColumn fx:id="orderProductIdCol" prefWidth="109.99998474121094" text="product_id" />
-          <TableColumn fx:id="orderQuantityCol" minWidth="9.0" prefWidth="65.0" text="quantity" />
-            <TableColumn fx:id="orderTotalItemValueCol" prefWidth="142.0" text="total_item_value" />
-            <TableColumn fx:id="orderDiscountCol" minWidth="0.0" prefWidth="100.0" text="discount" />
+          <TableColumn fx:id="orderProductIdCol" prefWidth="157.99998474121094" text="product_id" />
+          <TableColumn fx:id="orderQuantityCol" minWidth="9.0" prefWidth="264.0" text="quantity" />
+            <TableColumn fx:id="orderTotalItemValueCol" prefWidth="250.0" text="total_item_value" />
+            <TableColumn fx:id="orderDiscountCol" minWidth="0.0" prefWidth="211.0" text="discount" />
         </columns>
+         <GridPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </GridPane.margin>
       </TableView>
       <GridPane>
         <columnConstraints>
@@ -41,7 +44,12 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="addToOrderLowStockButton" mnemonicParsing="false" onAction="#onButtonAddOrderLowStockButtonClicked" text="Add to Order">
+                  <ComboBox fx:id="suppliersComboBox" onAction="#onSuppliersSelected" prefWidth="150.0" promptText="Suppliers...">
+                     <VBox.margin>
+                        <Insets left="20.0" top="20.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <Button fx:id="addProduct" mnemonicParsing="false" onAction="#onButtonAddOrderProductsButtonClicked" text="Add to Order">
                      <VBox.margin>
                         <Insets left="20.0" top="20.0" />
                      </VBox.margin></Button>
@@ -49,10 +57,11 @@
             </VBox>
             <TableView fx:id="supplierProducts" prefHeight="110.0" prefWidth="600.0" GridPane.columnIndex="1">
               <columns>
-                <TableColumn fx:id="lowStockProductIdCol" prefWidth="134.0" text="product_id" />
-                <TableColumn fx:id="lowStockProductNameCol" prefWidth="101.0" text="product_name" />
-                  <TableColumn fx:id="lowStockSupplierNameCol" prefWidth="134.0" text="supplier_name" />
-                  <TableColumn fx:id="lowStockPriceCol" prefWidth="118.0" text="price" />
+                <TableColumn fx:id="productsProductIdCol" prefWidth="93.0" text="product_id" />
+                <TableColumn fx:id="productsProductNameCol" prefWidth="192.0" text="product_name" />
+                  <TableColumn fx:id="productsSupplierNameCol" prefWidth="168.0" text="supplier_name" />
+                  <TableColumn fx:id="productsPriceCol" prefWidth="79.0" text="price" />
+                  <TableColumn fx:id="productsQtyCol" prefWidth="144.0" text="quantity_on_stock" />
               </columns>
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" top="20.0" />
@@ -68,24 +77,19 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="631.0" minWidth="10.0" prefWidth="220.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="93.0" minHeight="10.0" prefHeight="91.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="quantity" promptText="quantity..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="addToOrderFilteredButton" mnemonicParsing="false" onAction="#onButtonAddToOrderClicked" text="Add to Order" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <TextField fx:id="quantity" promptText="quantity..." GridPane.columnIndex="1" />
+            <Button fx:id="addToOrderFilteredButton" mnemonicParsing="false" onAction="#onButtonAddToOrderClicked" text="Add to Order" GridPane.columnIndex="2">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="submitOrderButton" mnemonicParsing="false" onAction="#onButtonSubmiteOrderClicked" text="SUBMIT ORDER" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <ComboBox fx:id="suppliersComboBox" onAction="#onSuppliersSelected" prefWidth="150.0" />
-            <ComboBox fx:id="productsComboBox" prefWidth="150.0" GridPane.rowIndex="1" />
-            <Label text="Total order value:" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="prodNameTemp" promptText="product name" GridPane.columnIndex="1" />
-            <TextField fx:id="supplierNameTemp" promptText="supplier name" GridPane.columnIndex="2" />
+            <Button fx:id="submitOrderButton" mnemonicParsing="false" onAction="#onButtonSubmiteOrderClicked" text="SUBMIT ORDER" GridPane.columnIndex="3" />
+            <Label text="Total order value:" GridPane.rowIndex="1" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>

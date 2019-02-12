@@ -24,9 +24,8 @@ public class Product implements Serializable {
     @Column(name = "supplier_id", nullable = true)
     private Integer supplierId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER) //Exception in thread "JavaFX Application Thread" org.hibernate.LazyInitializationException: could not initialize proxy [main.data.Supplier#2] - no Session
     @JoinColumn(name = "supplier_id", insertable = false, updatable = false, nullable = true)
-    //nullabel false bylo. not-null property references a null or transient value
     private Supplier supplier;
 
     @Column(name = "quantity_on_stock")

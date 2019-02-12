@@ -10,15 +10,18 @@ import javafx.util.converter.IntegerStringConverter;
 import main.data.Supplier;
 import javafx.fxml.FXML;
 import main.factory.Sessions;
-import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 
-import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.RollbackException;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SupplierManagementController {
 
@@ -27,14 +30,8 @@ public class SupplierManagementController {
             addSupplierButton,
             editSupplierButton,
             removeSupplierButton,
-            addRowButton;
-
-    @FXML
-    TextField
-            supplierName,
-            supplierId,
-            supplierEmail,
-            supplierPhone;
+            addRowButton,
+            searchSupplierButton;
 
     @FXML
     TableView<Supplier>
@@ -50,11 +47,21 @@ public class SupplierManagementController {
             supplierIdCol,
             supplierPhoneCol;
 
+    @FXML
+    ComboBox<String>
+            filterComboBox;
+
+    @FXML
+    TextField
+            filterTextField;
+
 
     Supplier supplier;
     SessionFactory sessionFactory;
     ObservableList<Supplier> data;
     Supplier newSupplier;
+    List<String> columnNames;
+    Map<String, Field> columnMap;
 
     public void initialize() {
         sessionFactory = Sessions.getSessionFactory();
@@ -65,6 +72,7 @@ public class SupplierManagementController {
         supplierPhoneCol.setCellValueFactory(new PropertyValueFactory<Supplier, Integer>("phoneNumber"));
         supplierList.getColumns().setAll(supplierNameCol, supplierIdCol, supplierEmailCol, supplierPhoneCol);
         supplierList.setItems(createSupplierList());
+
 
         supplierNameCol.setCellFactory(TextFieldTableCell.<Supplier>forTableColumn());
         supplierIdCol.setCellFactory(TextFieldTableCell.<Supplier, Integer>forTableColumn(new IntegerStringConverter()));
@@ -112,6 +120,10 @@ public class SupplierManagementController {
         );
 
         supplierList.setEditable(true);
+
+        supplierColumnNames();
+        for (String columns : columnNames)
+            filterComboBox.getItems().add(columns);
     }
 
 
@@ -121,26 +133,56 @@ public class SupplierManagementController {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List<Supplier> suppliers = session.createQuery("from Supplier").list();
-        //   data = FXCollections.observableArrayList(suppliers);
         for (Supplier s : suppliers)
             data.add(s);
         session.close();
         return data;
     }
 
-    //OK. Wpisywanie danych w textfieldy - nie przypisane do buttona
-    public void onButtonAddSupplierClicked() {
-        supplier = new Supplier(
-                supplierName.getText(),
-                Integer.parseInt(supplierId.getText()),
-                supplierEmail.getText(),
-                Integer.parseInt(supplierPhone.getText()));
+    List<String> supplierColumnNames(){
+        Field[] fields = Supplier.class.getDeclaredFields();
+        columnMap = new HashMap<>();
+        columnNames = new ArrayList<>(fields.length);
+        for (Field f : fields) {
+            f.setAccessible(true);
+            Column column = f.getAnnotation(Column.class);
+            if (column != null) {
+                columnNames.add(column.name());
+                columnMap.put(column.name(), f);
+            }
+        }
+        return columnNames;
+    }
 
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        session.save(supplier);
-        session.getTransaction().commit();
-        sessionFactory.close();
+    //ok
+    public void onButtonSearchClicked(){
+        String selectedColumn = filterComboBox.getSelectionModel().getSelectedItem();
+        String searchInput = filterTextField.getText();
+        Field selectedField = columnMap.get(selectedColumn);
+
+        if(selectedField.getType().getSuperclass().equals(Number.class)){
+            Integer value = Integer.parseInt(searchInput);
+            supplierList.setItems(data.filtered(supplier1 -> {
+                try {
+                    return selectedField.get(supplier1).equals(value);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }));
+        } else {
+            supplierList.setItems(data.filtered(supplier1 -> {
+                Object fieldValue = null;
+                try {
+                    fieldValue = selectedField.get(supplier1);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+                String fieldString = fieldValue.toString();
+                return fieldString.toLowerCase().contains(searchInput.toLowerCase());
+            }));
+        }
     }
 
     //ok
@@ -177,19 +219,6 @@ public class SupplierManagementController {
         );
 
         session.save(newSupplier);
-        session.getTransaction().commit();
-        sessionFactory.close();
-    }
-
-    // ok. Nieprzypisane do buttona
-    public void onButtonEditSupplierClicked() {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        Supplier supplier = session.get(Supplier.class, Integer.parseInt(supplierId.getText()));
-        supplier.setName(supplierEmail.getText());
-        supplier.setEmail(supplierEmail.getText());
-        supplier.setPhoneNumber(Integer.parseInt(supplierPhone.getText()));
-        session.save(supplier);
         session.getTransaction().commit();
         sessionFactory.close();
     }

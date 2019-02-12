@@ -1,13 +1,13 @@
 package main.gui;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.ImageCursor;
+import javafx.scene.PointLight;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.paint.Color;
 import javafx.util.StringConverter;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
@@ -23,20 +23,16 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Column;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class OrderPlaceController {
 
     @FXML
     Button
-            addToOrderLowStockButton,
             addToOrderFilteredButton,
-            submitOrderButton;
+            submitOrderButton,
+            addProduct;
 
     @FXML
     ComboBox<String>
@@ -60,33 +56,25 @@ public class OrderPlaceController {
 
     @FXML
     TableColumn<Product, Integer>
-
-            lowStockProductIdCol;
+            productsQtyCol,
+            productsProductIdCol;
 
     @FXML
     TableColumn<Product, Double>
-            lowStockPriceCol;
+            productsPriceCol;
 
     @FXML
     TableColumn<Product, String>
-            lowStockProductNameCol;
+            productsProductNameCol;
 
     @FXML
     TableColumn<Product, Supplier>
-            lowStockSupplierNameCol;
+            productsSupplierNameCol;
 
     @FXML
     TableColumn<OrderedItems, Integer>
             orderProductIdCol,
-            orderQuantityCol,
-            orderSupplierIdCol;
-
-//    @FXML
-//    TableColumn<OrderedItems, Supplier>
-//            orderSupplierNameCol;
-//    @FXML
-//    TableColumn<OrderedItems, String>
-//            orderProductNameCol;
+            orderQuantityCol;
 
     @FXML
     TableColumn<OrderedItems, Double>
@@ -94,19 +82,32 @@ public class OrderPlaceController {
             orderDiscountCol;
 
 
-    @FXML
-    TextField
-            prodNameTemp,
-            supplierNameTemp;
-
     SessionFactory sessionFactory;
     List<String> supplierNames;
     List<String> products;
     String selectedSupplier;
     ObservableList<Product> data;
-    ObservableList<Product> dataLowStock;
-    List<Product> productsLowStock;
+    ObservableList<Product> dataProducts;
+    List<Product> allProducts;
+    Map<String, Field> productsPerSupplier;
+    List<Product> filteredProducts;
+    ObservableList<Product> filteredProductsOL;
 
+    public void createMap() {
+        Field[] fields = Product.class.getDeclaredFields();
+        productsPerSupplier = new HashMap<String, Field>();
+
+        for (Field f : fields) {
+            f.setAccessible(true);
+            Column column = f.getAnnotation(Column.class);
+            if (column != null) {
+
+                productsPerSupplier.put(column.name(), f);
+            }
+        }
+    }
+
+    //ok
     private List<String> supplierColumnOrder() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -115,42 +116,37 @@ public class OrderPlaceController {
         return supplierNames;
     }
 
+    //ok
     public void initialize() {
         sessionFactory = Sessions.getSessionFactory();
 
-        initializeLowStockTV();
+        initializeProductsTV();
 
         supplierColumnOrder();
         for (String suppliers : supplierNames)
-            suppliersComboBox.getItems().add(suppliers); //dotad ok
-
-        //onSuppliersSelected();
-        //for (String productColumns : products)
-        //productsComboBox.getItems().add(productColumns);
+            suppliersComboBox.getItems().add(suppliers);
 
         orderProductIdCol.setCellValueFactory(new PropertyValueFactory<OrderedItems, Integer>("productId"));
         orderQuantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        //orderSupplierIdCol.setCellValueFactory(new PropertyValueFactory<Product, Integer>("supplierId"));
         orderTotalItemValueCol.setCellValueFactory(new PropertyValueFactory<>("totalItemValue"));
         orderDiscountCol.setCellValueFactory(new PropertyValueFactory<>("discount"));
-       // orderProductNameCol.setCellValueFactory(new PropertyValueFactory<OrderedItems, String>("name"));
-        //orderSupplierNameCol.setCellValueFactory(new PropertyValueFactory<OrderedItems, Supplier>("supplier"));
 
         orderQuantityCol.setEditable(true);
-
+        createMap();
     }
 
-    public void initializeLowStockTV() {
-        lowStockProductIdCol.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
-        lowStockProductNameCol.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
-        lowStockPriceCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("unitPrice"));
-        lowStockSupplierNameCol.setCellValueFactory(new PropertyValueFactory<Product, Supplier>("supplier"));
+    public void initializeProductsTV() {
+        productsProductIdCol.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
+        productsProductNameCol.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
+        productsPriceCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("unitPrice"));
+        productsSupplierNameCol.setCellValueFactory(new PropertyValueFactory<Product, Supplier>("supplier"));
+        productsQtyCol.setCellValueFactory(new PropertyValueFactory<Product, Integer>("quantityOnStock"));
 
-        // lowStockProductIdCol.setCellFactory(TextFieldTableCell.forTableColumn().call());**************************
-        lowStockProductIdCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        lowStockProductNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        lowStockPriceCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-        lowStockSupplierNameCol.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Supplier>() {
+        // productsProductIdCol.setCellFactory(TextFieldTableCell.forTableColumn().call());**************************
+        productsProductIdCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        productsProductNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        productsPriceCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        productsSupplierNameCol.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Supplier>() {
             @Override
             public String toString(Supplier object) {
                 return object.getName();
@@ -162,70 +158,81 @@ public class OrderPlaceController {
             }
         }));
 
-        supplierProducts.setItems(showLowStockList());
+        productsQtyCol.setCellFactory(column -> {
+            return new TableCell<Product, Integer>() {
 
+                protected void updateItem(Integer qty) {
+                    if (qty <= 5) {
+                        setTextFill(Color.CHOCOLATE);
+                        setStyle("-fx-background-color: yellow");
+                    } else {
+                        setTextFill(Color.BLACK);
+                        setStyle("");
+                    }
+                }
+            };
+        });
+
+        supplierProducts.setItems(showproductsList());
         supplierProducts.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-
     }
 
+    //usunac?
     public ObservableList<Product> createOrderProductList() {
 
-        String selectedItem = productsComboBox.getSelectionModel().getSelectedItem();//powinien byc combobox
+        String selectedItem = productsComboBox.getSelectionModel().getSelectedItem();
         data = FXCollections.observableArrayList();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<Product> products = session.createQuery(
-                "from Product as product where product.name = : pname").setParameter("pname", selectedItem).list();
+        List<Product> products = session.createQuery("from Product ").list();
+//        List<Product> products = session.createQuery(
+//                "from Product as product where product.name = : pname").setParameter("pname", selectedItem).list();
         for (Product p : products)
             data.add(p);
-
-//        prodNameTemp.textProperty().addListener(new ChangeListener<String>() {
-//            @Override
-//            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-//                 String selectedItem = newValue;
-//                List<Product> products = session.createQuery(
-//                        "from Product as product where product.name = : pname").setParameter("pname", selectedItem).list();
-//                for (Product p : products)
-//                    data.add(p);
-//
-//            }
-//        });
         return data;
     }
 
     //ok
-    public ObservableList<Product> showLowStockList() {
-        dataLowStock = FXCollections.observableArrayList();
+    public ObservableList<Product> showproductsList() {
+        dataProducts = FXCollections.observableArrayList();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        productsLowStock = session.createQuery("from Product as product where product.quantityOnStock < 5").list();
-        for (Product p : productsLowStock)
-            dataLowStock.add(p);
-        return dataLowStock;
+        allProducts = session.createQuery("from Product").list();
+        for (Product p : allProducts)
+            dataProducts.add(p);
+        return dataProducts;
     }
 
+    //ok
     public void onSuppliersSelected(ActionEvent e) {
-        selectedSupplier = suppliersComboBox.getSelectionModel().getSelectedItem();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        products = session.createQuery(
-                "select product.name from Product as product where product.supplier.name = : supp")
-                .setParameter("supp", selectedSupplier).list();
+        selectedSupplier = suppliersComboBox.getSelectionModel().getSelectedItem();
 
-        for (String productColumns : products)
-            productsComboBox.getItems().add(productColumns);
+        filteredProducts = session.createQuery(
+                "from Product as product where product.supplier.name = : name").setParameter("name", selectedSupplier).list();
+
+        filteredProductsOL = FXCollections.observableArrayList(filteredProducts);
+
+        supplierProducts.setItems(filteredProductsOL);
         session.close();
     }
 
 
-    public void onButtonAddOrderLowStockButtonClicked() {
+    public void onButtonAddOrderProductsButtonClicked() {
     }
 
+    //ok
     public void onButtonAddToOrderClicked() {
         Product selectedProduct = supplierProducts.getSelectionModel().getSelectedItem();
         if (selectedProduct != null) {
-            OrderedItems item = new OrderedItems(null, selectedProduct.getId(), 1, 0.0, selectedProduct.getUnitPrice(), null);
+            OrderedItems item = new OrderedItems(
+                    null,
+                    selectedProduct.getId(),
+                    1,
+                    0.0,
+                    selectedProduct.getUnitPrice(),
+                    null);
             item.setProduct(selectedProduct);
             orderDraft.getItems().add(item);
         }
@@ -253,23 +260,18 @@ public class OrderPlaceController {
         newOrder.setOrderedItems(new ArrayList<>());
         session.save(newOrder);
         session.getTransaction().commit();
-//        session.close();
-//
-//
-//        session = sessionFactory.openSession();
+
         session.beginTransaction();
 
         for (OrderedItems item : orderDraft.getItems()) {
-            Double total = item.getQuantity()*item.getProduct().getUnitPrice();
+            Double total = item.getQuantity() * item.getProduct().getUnitPrice();
             item.setTotalItemValue(total);
             newOrder.getOrderedItems().add(item);
             item.setOrder(newOrder);
             item.setOrderId(newOrder.getOrderNumber());
-            //session.save(item);
         }
         session.save(newOrder);
         session.getTransaction().commit();
         session.close();
-
     }
 }

@@ -71,7 +71,7 @@ public class ProductManagementController {
     List<String> columnNames;
     HashMap<String, Field> productSQLColumnToFields;
 
-
+//ok
     private List<String> productColumnNames() {
         Field[] fields = Product.class.getDeclaredFields();
         productSQLColumnToFields = new HashMap<String, Field>();
@@ -109,19 +109,7 @@ public class ProductManagementController {
                         return false;
                     }
                 }));
-//                ArrayList<Integer> a=new ArrayList<>();
-//                productList.setItems(data.filtered(new Predicate<Product>() {
-//                    @Override
-//                    public boolean test(Product product) {
-//
-//                        try {
-//                            return selectedField.get(product).equals(value);
-//                        } catch (IllegalAccessException e) {
-//                            e.printStackTrace();
-//                            return false;
-//                        }
-//                    }
-//                };
+
             } else if (parts.length == 2) {
                 double min = Double.parseDouble(parts[0]);
                 double max = Double.parseDouble(parts[1]);
@@ -254,10 +242,12 @@ public class ProductManagementController {
         }
     }
 
+    //ok
     public void onRefreshButtonClicked() {
         productList.setItems(createProductList());
     }
 
+    //ok
     public void onButtonAddRowClicked() {
         newProduct = new Product(0, "", "", 0, 0);
         productList.getItems().add(newProduct);
@@ -267,6 +257,7 @@ public class ProductManagementController {
         session.getTransaction().commit();
     }
 
+    //ok
     public void onAddNewProductButtonClicked() {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
@@ -302,11 +293,23 @@ public class ProductManagementController {
         sessionFactory.close();
     }
 
+    //tworzy nowy obiekt:(
     public void onEditProductButtonClicked() {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        session.save(product);
-        session.getTransaction().commit();
+
+        if (productList.getSelectionModel().getSelectedItem() != null) {
+            Product selectedproduct = productList.getSelectionModel().getSelectedItem();
+            selectedproduct.setName(selectedproduct.getName());
+            selectedproduct.setUnitPrice(selectedproduct.getUnitPrice());
+            selectedproduct.setCategory(selectedproduct.getCategory());
+            selectedproduct.setSupplierId(selectedproduct.getSupplierId());
+            selectedproduct.setSupplier(selectedproduct.getSupplier());
+            selectedproduct.setQuantityOnStock(selectedproduct.getQuantityOnStock());
+
+            session.save(selectedproduct);
+            session.getTransaction().commit();
+        }
         session.close();
         sessionFactory.close();
     }

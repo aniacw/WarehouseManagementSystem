@@ -14,7 +14,9 @@ import main.ConverterEnum;
 import main.OrderStatus;
 import main.data.Order;
 import javafx.fxml.FXML;
+import main.data.OrderedItems;
 import main.factory.Sessions;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -90,11 +92,20 @@ public class OrderSearchController {
 
         orderList.setItems(createOrderList());
 
+        orderStatusCol.setOnEditCommit(
+                event -> {
+                    (event.getTableView().getItems().get(
+                            event.getTablePosition().getRow())
+                    ).setStatus(event.getNewValue());
+                }
+        );
+
         orderColumnNames();
         for (String columns : columnNames)
             searchByCombobox.getItems().add(columns);
     }
 
+    //ok
     public ObservableList<Order> createOrderList() {
         data = FXCollections.observableArrayList();
         Session session = sessionFactory.openSession();
@@ -105,6 +116,7 @@ public class OrderSearchController {
         return data;
     }
 
+    //ok
     List<String> orderColumnNames() {
         Field[] fields = Order.class.getDeclaredFields();
         orderSQLColumnToFields = new HashMap<>();
@@ -120,13 +132,14 @@ public class OrderSearchController {
         return columnNames;
     }
 
+    //ok
     public void onButtonSearchClicked() {
         String selectedColumn = searchByCombobox.getSelectionModel().getSelectedItem();
-        String seatchInput = searchByTextField.getText();
+        String searchInput = searchByTextField.getText();
         Field selectedField = orderSQLColumnToFields.get(selectedColumn);
 
         if(selectedField.getType().getSuperclass().equals(Number.class)){
-            Integer value = Integer.parseInt(seatchInput);
+            Integer value = Integer.parseInt(searchInput);
             orderList.setItems(data.filtered(order -> {
                 try {
                     return selectedField.get(order).equals(value);
@@ -146,15 +159,17 @@ public class OrderSearchController {
                     return false;
                 }
                 String fieldString = fieldValue.toString();
-                return fieldString.toLowerCase().contains(seatchInput.toLowerCase());
+                return fieldString.toLowerCase().contains(searchInput.toLowerCase());
             }));
         }
 
     }
 
+    //nie dziala
     public void onButtonStatusUpdateClicked(){
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
+
         session.save(order);
         session.getTransaction().commit();
         session.close();
@@ -163,8 +178,45 @@ public class OrderSearchController {
 
 
     public void onButtonOrderAgainClicked() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Order newOrder = new Order(
+                null,
+                OrderStatus.PENDING,
+                0.0,
+                orderList.getSelectionModel().getSelectedItem().getSupplierId(),
+                new Date());
+
+        newOrder.setOrderedItems(new ArrayList<>());
+        session.save(newOrder);
+        session.getTransaction().commit();
+        session.beginTransaction();
+
+        Integer oldOrderNo = orderList.getSelectionModel().getSelectedItem().getOrderNumber();//ok
+        System.out.println(oldOrderNo);
+        Order oldOrder = session.get(Order.class, oldOrderNo);//ok
+        System.out.println(oldOrder);
+
+        List<OrderedItems> filteredList = session.createQuery(
+                "from OrderedItems as orderedItems where orderedItems.orderId = : oid").setParameter("oid", oldOrderNo).list();
+
+        System.out.println(filteredList);
+
+        for (OrderedItems item : filteredList) {
+            Double total = item.getQuantity() * item.getProduct().getUnitPrice();
+            item.setTotalItemValue(total);
+            newOrder.getOrderedItems().add(item);
+            item.setOrder(newOrder);
+            item.setOrderId(newOrder.getOrderNumber());
+
+        }
+        session.save(newOrder);
+        session.getTransaction().commit();
+        session.close();
     }
 
+    //ok
     public void onButtonShowAllOrdersClicked() {
         orderList.setItems(data );
     }
