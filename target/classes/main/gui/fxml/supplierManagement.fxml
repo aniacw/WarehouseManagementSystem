@@ -64,7 +64,7 @@
                </font></Button>
             </children>
         </VBox>
-        <TableView fx:id="supplierList" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+        <TableView fx:id="supplierTable" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
             <columns>
                 <TableColumn fx:id="supplierNameCol" prefWidth="149.0" text="supplier_name" />
                 <TableColumn fx:id="supplierIdCol" prefWidth="135.0" text="supplier_id" />

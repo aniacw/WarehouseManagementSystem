@@ -35,7 +35,7 @@ public class SupplierManagementController {
 
     @FXML
     TableView<Supplier>
-            supplierList;
+            supplierTable;
 
     @FXML
     TableColumn<Supplier, String>
@@ -65,21 +65,20 @@ public class SupplierManagementController {
 
     public void initialize() {
         sessionFactory = Sessions.getSessionFactory();
-        supplierList.getColumns().clear();
+        supplierTable.getColumns().clear();
         supplierNameCol.setCellValueFactory(new PropertyValueFactory<Supplier, String>("name"));
         supplierIdCol.setCellValueFactory(new PropertyValueFactory<Supplier, Integer>("id"));
         supplierEmailCol.setCellValueFactory(new PropertyValueFactory<Supplier, String>("email"));
         supplierPhoneCol.setCellValueFactory(new PropertyValueFactory<Supplier, Integer>("phoneNumber"));
-        supplierList.getColumns().setAll(supplierNameCol, supplierIdCol, supplierEmailCol, supplierPhoneCol);
-        supplierList.setItems(createSupplierList());
-
+        supplierTable.getColumns().setAll(supplierNameCol, supplierIdCol, supplierEmailCol, supplierPhoneCol);
+        supplierTable.setItems(createsupplierTable());
 
         supplierNameCol.setCellFactory(TextFieldTableCell.<Supplier>forTableColumn());
         supplierIdCol.setCellFactory(TextFieldTableCell.<Supplier, Integer>forTableColumn(new IntegerStringConverter()));
         supplierEmailCol.setCellFactory(TextFieldTableCell.<Supplier>forTableColumn());
         supplierPhoneCol.setCellFactory(TextFieldTableCell.<Supplier, Integer>forTableColumn(new IntegerStringConverter()));
 
-        supplierList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        supplierTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         supplierNameCol.setOnEditCommit(
                 new EventHandler<TableColumn.CellEditEvent<Supplier, String>>() {
@@ -119,7 +118,7 @@ public class SupplierManagementController {
                 }
         );
 
-        supplierList.setEditable(true);
+        supplierTable.setEditable(true);
 
         supplierColumnNames();
         for (String columns : columnNames)
@@ -128,7 +127,7 @@ public class SupplierManagementController {
 
 
     @SuppressWarnings("unchecked")
-    public ObservableList<Supplier> createSupplierList() {
+    public ObservableList<Supplier> createsupplierTable() {
         data = FXCollections.observableArrayList();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -139,7 +138,8 @@ public class SupplierManagementController {
         return data;
     }
 
-    List<String> supplierColumnNames(){
+    //ok
+    List<String> supplierColumnNames() {
         Field[] fields = Supplier.class.getDeclaredFields();
         columnMap = new HashMap<>();
         columnNames = new ArrayList<>(fields.length);
@@ -155,14 +155,14 @@ public class SupplierManagementController {
     }
 
     //ok
-    public void onButtonSearchClicked(){
+    public void onButtonSearchClicked() {
         String selectedColumn = filterComboBox.getSelectionModel().getSelectedItem();
         String searchInput = filterTextField.getText();
         Field selectedField = columnMap.get(selectedColumn);
 
-        if(selectedField.getType().getSuperclass().equals(Number.class)){
+        if (selectedField.getType().getSuperclass().equals(Number.class)) {
             Integer value = Integer.parseInt(searchInput);
-            supplierList.setItems(data.filtered(supplier1 -> {
+            supplierTable.setItems(data.filtered(supplier1 -> {
                 try {
                     return selectedField.get(supplier1).equals(value);
                 } catch (IllegalAccessException e) {
@@ -171,7 +171,7 @@ public class SupplierManagementController {
                 }
             }));
         } else {
-            supplierList.setItems(data.filtered(supplier1 -> {
+            supplierTable.setItems(data.filtered(supplier1 -> {
                 Object fieldValue = null;
                 try {
                     fieldValue = selectedField.get(supplier1);
@@ -188,7 +188,7 @@ public class SupplierManagementController {
     //ok
     public void onButtonAddRowClicked() {
         newSupplier = new Supplier("", 0, "", 0);
-        supplierList.getItems().add(newSupplier);
+        supplierTable.getItems().add(newSupplier);
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.save(newSupplier);
@@ -223,10 +223,12 @@ public class SupplierManagementController {
         sessionFactory.close();
     }
 
-    //ok
+    //nie dziala
     public void onButtonEditSupplierTVClicked() {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
+        Integer sid = supplierTable.getSelectionModel().getSelectedItem().getId();
+        supplier = session.get(Supplier.class, sid);
         session.save(supplier);
         session.getTransaction().commit();
         sessionFactory.close();
@@ -234,7 +236,7 @@ public class SupplierManagementController {
 
     //ok uzupelnic catch
     public void onButtonRemoveSupplierClicked() {
-        ObservableList<Supplier> selectedItems = supplierList.getSelectionModel().getSelectedItems();
+        ObservableList<Supplier> selectedItems = supplierTable.getSelectionModel().getSelectedItems();
         if (!selectedItems.isEmpty()) {
             try {
                 Session session = sessionFactory.openSession();
@@ -243,9 +245,9 @@ public class SupplierManagementController {
                     session.delete(selected);
                 session.getTransaction().commit();
                 session.close();
-                supplierList.getItems().remove(selectedItems.get(0));
+                supplierTable.getItems().remove(selectedItems.get(0));
             } catch (HibernateException | RollbackException | IllegalStateException e) {
-                //....
+                e.printStackTrace();
             }
         }
     }

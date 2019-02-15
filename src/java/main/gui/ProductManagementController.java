@@ -36,7 +36,7 @@ public class ProductManagementController {
 
     @FXML
     TableView<Product>
-            productList;
+            productTable;
 
     @FXML
     TableColumn<Product, Integer>
@@ -101,7 +101,7 @@ public class ProductManagementController {
             String[] parts = searchInput.split("\\s*-\\s*");
             if (parts.length == 1) {
                 double value = Double.parseDouble(parts[0]);
-                productList.setItems(data.filtered(product -> {
+                productTable.setItems(data.filtered(product -> {
                     try {
                         return selectedField.get(product).equals(value);
                     } catch (IllegalAccessException e) {
@@ -113,7 +113,7 @@ public class ProductManagementController {
             } else if (parts.length == 2) {
                 double min = Double.parseDouble(parts[0]);
                 double max = Double.parseDouble(parts[1]);
-                productList.setItems(data.filtered(product -> {
+                productTable.setItems(data.filtered(product -> {
                     try {
                         Number fieldValue = (Number) selectedField.get(product);
                         double d = fieldValue.doubleValue();
@@ -128,7 +128,7 @@ public class ProductManagementController {
                 return;
             }
         } else {
-            productList.setItems(data.filtered(product -> {
+            productTable.setItems(data.filtered(product -> {
                 try {
                     Object fieldValue = selectedField.get(product);
                     String fieldStr = fieldValue.toString();
@@ -143,14 +143,14 @@ public class ProductManagementController {
 
     public void initialize() {
         sessionFactory = Sessions.getSessionFactory();
-//        productList.getColumns().clear();
+//        productTable.getColumns().clear();
         productIdCol.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id")); //nazwa pola w klasie
         productNameCol.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
         productCategoryCol.setCellValueFactory(new PropertyValueFactory<Product, String>("category"));
         productPriceCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("unitPrice"));
         productSupplierIdCol.setCellValueFactory(new PropertyValueFactory<Product, Integer>("supplierId"));
         productSupplierNameCol.setCellValueFactory(new PropertyValueFactory<Product, Supplier>("supplier"));
-        //productList.getColumns().setAll(productIdCol, productNameCol, productCategoryCol, productPriceCol, productSupplierIdCol, );
+        //productTable.getColumns().setAll(productIdCol, productNameCol, productCategoryCol, productPriceCol, productSupplierIdCol, );
 
         productIdCol.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
         productNameCol.setCellFactory(TextFieldTableCell.<Product>forTableColumn());
@@ -172,9 +172,9 @@ public class ProductManagementController {
             }
         }));
 
-        productList.setItems(createProductList());
+        productTable.setItems(createproductTable());
 
-        productList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        productTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         productIdCol.setOnEditCommit(
                 event -> {
@@ -210,14 +210,14 @@ public class ProductManagementController {
                 ).setSupplierId(event.getNewValue())
         );
 
-        productList.setEditable(true);
+        productTable.setEditable(true);
 
         productColumnNames();
         for (String columns : columnNames)
             columnNamesCombobox.getItems().add(columns);
     }
 
-    public ObservableList<Product> createProductList() {
+    public ObservableList<Product> createproductTable() {
         data = FXCollections.observableArrayList();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -227,30 +227,30 @@ public class ProductManagementController {
         return data;
     }
 
-    public void onSearchButtonClicked() {
-        String idText = search.getText();
-        if (idText.isEmpty()) {
-            productList.setItems(data.filtered(
-                    p -> p.getSupplierId() == null));
-        } else {
-            int id = Integer.parseInt(search.getText());
-            productList.setItems(data.filtered(
-                    p -> {
-                        Integer pid = p.getSupplierId();
-                        return pid != null && pid.equals(id);
-                    }));
-        }
-    }
+//    public void onSearchButtonClicked() {
+//        String idText = search.getText();
+//        if (idText.isEmpty()) {
+//            productTable.setItems(data.filtered(
+//                    p -> p.getSupplierId() == null));
+//        } else {
+//            int id = Integer.parseInt(search.getText());
+//            productTable.setItems(data.filtered(
+//                    p -> {
+//                        Integer pid = p.getSupplierId();
+//                        return pid != null && pid.equals(id);
+//                    }));
+//        }
+//    }
 
     //ok
     public void onRefreshButtonClicked() {
-        productList.setItems(createProductList());
+        productTable.setItems(createproductTable());
     }
 
     //ok
     public void onButtonAddRowClicked() {
         newProduct = new Product(0, "", "", 0, 0);
-        productList.getItems().add(newProduct);
+        productTable.getItems().add(newProduct);
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.save(newProduct);
@@ -298,8 +298,9 @@ public class ProductManagementController {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
 
-        if (productList.getSelectionModel().getSelectedItem() != null) {
-            Product selectedproduct = productList.getSelectionModel().getSelectedItem();
+        if (productTable.getSelectionModel().getSelectedItem() != null) {
+            Product selectedproduct = productTable.getSelectionModel().getSelectedItem();
+            selectedproduct.setId(selectedproduct.getId());
             selectedproduct.setName(selectedproduct.getName());
             selectedproduct.setUnitPrice(selectedproduct.getUnitPrice());
             selectedproduct.setCategory(selectedproduct.getCategory());
@@ -316,7 +317,7 @@ public class ProductManagementController {
 
     //z bazy usuwa wszystko, ale z TV w 1 sesji 1 row
     public void onRemoveProductButtonClicked() {
-        ObservableList<Product> selectedItems = productList.getSelectionModel().getSelectedItems();
+        ObservableList<Product> selectedItems = productTable.getSelectionModel().getSelectedItems();
         if (!selectedItems.isEmpty()) {
             try {
                 Session session = sessionFactory.openSession();
@@ -325,7 +326,7 @@ public class ProductManagementController {
                 for (Product selected : selectedItems)
                     session.delete(selected);
                 for (int i = 0; i < selectedItems.size(); i++)
-                    productList.getItems().remove(selectedItems.get(i));
+                    productTable.getItems().remove(selectedItems.get(i));
 
                 session.getTransaction().commit();
                 session.close();

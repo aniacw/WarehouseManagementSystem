@@ -15,6 +15,7 @@ import main.OrderStatus;
 import main.data.Order;
 import javafx.fxml.FXML;
 import main.data.OrderedItems;
+import main.data.Supplier;
 import main.factory.Sessions;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -46,7 +47,7 @@ public class OrderSearchController {
 
     @FXML
     TableView<Order>
-            orderList;
+            orderTable;
 
     @FXML
     TableColumn<Order, Integer>
@@ -79,9 +80,9 @@ public class OrderSearchController {
         orderTotalValueCol.setCellValueFactory(new PropertyValueFactory<Order, Double>("totalOrderValue"));
         orderSupplierIdCol.setCellValueFactory(new PropertyValueFactory<Order, Integer>("supplierId"));
         orderDateCol.setCellValueFactory(new PropertyValueFactory<Order, Date>("date"));
-        orderList.getColumns().setAll(orderNoCol, orderStatusCol, orderTotalValueCol, orderSupplierIdCol, orderDateCol);
+        orderTable.getColumns().setAll(orderNoCol, orderStatusCol, orderTotalValueCol, orderSupplierIdCol, orderDateCol);
 
-        orderList.setEditable(true);
+        orderTable.setEditable(true);
 
 //        orderNoCol.setCellFactory(TextFieldTableCell.<Order, Integer>forTableColumn(new IntegerStringConverter()));
         orderStatusCol.setCellFactory(ComboBoxTableCell.<Order, OrderStatus>forTableColumn(
@@ -90,7 +91,7 @@ public class OrderSearchController {
 //        orderSupplierIdCol.setCellFactory(TextFieldTableCell.<Order, Integer>forTableColumn(new IntegerStringConverter()));
 //        orderDateCol.setCellFactory(TextFieldTableCell.<Order, Date>forTableColumn(new DateStringConverter()));
 
-        orderList.setItems(createOrderList());
+        orderTable.setItems(createorderTable());
 
         orderStatusCol.setOnEditCommit(
                 event -> {
@@ -106,7 +107,7 @@ public class OrderSearchController {
     }
 
     //ok
-    public ObservableList<Order> createOrderList() {
+    public ObservableList<Order> createorderTable() {
         data = FXCollections.observableArrayList();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -140,7 +141,7 @@ public class OrderSearchController {
 
         if(selectedField.getType().getSuperclass().equals(Number.class)){
             Integer value = Integer.parseInt(searchInput);
-            orderList.setItems(data.filtered(order -> {
+            orderTable.setItems(data.filtered(order -> {
                 try {
                     return selectedField.get(order).equals(value);
                 } catch (IllegalAccessException e) {
@@ -150,7 +151,7 @@ public class OrderSearchController {
             }));
 
         } else {
-            orderList.setItems(data.filtered(order -> {
+            orderTable.setItems(data.filtered(order -> {
                 Object fieldValue = null;
                 try {
                     fieldValue = selectedField.get(order);
@@ -169,14 +170,15 @@ public class OrderSearchController {
     public void onButtonStatusUpdateClicked(){
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-
+        Integer oid = orderTable.getSelectionModel().getSelectedItem().getOrderNumber();
+        order = session.get(Order.class, oid);
         session.save(order);
         session.getTransaction().commit();
         session.close();
         sessionFactory.close();
     }
 
-
+    //nie dziala
     public void onButtonOrderAgainClicked() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -185,7 +187,7 @@ public class OrderSearchController {
                 null,
                 OrderStatus.PENDING,
                 0.0,
-                orderList.getSelectionModel().getSelectedItem().getSupplierId(),
+                orderTable.getSelectionModel().getSelectedItem().getSupplierId(),
                 new Date());
 
         newOrder.setOrderedItems(new ArrayList<>());
@@ -193,23 +195,22 @@ public class OrderSearchController {
         session.getTransaction().commit();
         session.beginTransaction();
 
-        Integer oldOrderNo = orderList.getSelectionModel().getSelectedItem().getOrderNumber();//ok
-        System.out.println(oldOrderNo);
+        Integer oldOrderNo = orderTable.getSelectionModel().getSelectedItem().getOrderNumber();//ok
         Order oldOrder = session.get(Order.class, oldOrderNo);//ok
-        System.out.println(oldOrder);
 
-        List<OrderedItems> filteredList = session.createQuery(
+        List<OrderedItems> filteredList =  session.createQuery(
                 "from OrderedItems as orderedItems where orderedItems.orderId = : oid").setParameter("oid", oldOrderNo).list();
 
-        System.out.println(filteredList);
+
+
+        for(OrderedItems b:filteredList) {
+            System.out.println(b);
+        }
 
         for (OrderedItems item : filteredList) {
-            Double total = item.getQuantity() * item.getProduct().getUnitPrice();
-            item.setTotalItemValue(total);
             newOrder.getOrderedItems().add(item);
             item.setOrder(newOrder);
             item.setOrderId(newOrder.getOrderNumber());
-
         }
         session.save(newOrder);
         session.getTransaction().commit();
@@ -218,7 +219,7 @@ public class OrderSearchController {
 
     //ok
     public void onButtonShowAllOrdersClicked() {
-        orderList.setItems(data );
+        orderTable.setItems(data );
     }
 
 

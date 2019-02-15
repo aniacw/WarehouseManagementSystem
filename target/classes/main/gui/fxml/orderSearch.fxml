@@ -55,7 +55,7 @@
             <Button fx:id="updateStatusButton" mnemonicParsing="false" onAction="#onButtonStatusUpdateClicked" text="Update status" GridPane.columnIndex="3" />
          </children>
       </GridPane>
-      <TableView fx:id="orderList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+      <TableView fx:id="orderTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
         <columns>
           <TableColumn fx:id="orderNoCol" prefWidth="75.0" text="order_no" />
           <TableColumn fx:id="orderStatusCol" prefWidth="108.0" text="order_status" />

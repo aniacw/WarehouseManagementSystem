@@ -50,7 +50,7 @@
                      </font></Button>
                </children>
             </VBox>
-            <TableView fx:id="productList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+            <TableView fx:id="productTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
               <columns>
                 <TableColumn fx:id="productIdCol" prefWidth="98.0" text="product_id" />
                 <TableColumn fx:id="productNameCol" prefWidth="145.0" text="name" />
