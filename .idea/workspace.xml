@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="prodMngt7">
-      <change afterPath="$PROJECT_DIR$/src/java/main/gui/OrderDetailsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/java/main/gui/fxml/OrderDetails.fxml" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="prodMngt8">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/main/gui/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/main/gui/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/main/gui/OrderDetailsController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/main/gui/OrderSearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/main/gui/OrderSearchController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/main/gui/ProductManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/main/gui/ProductManagementController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/main/gui/SupplierManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/main/gui/SupplierManagementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/main/gui/fxml/OrderDetails.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/main/gui/fxml/orderDetails.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/main/gui/fxml/orderSearch.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/main/gui/fxml/orderSearch.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/main/gui/fxml/productManagement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/main/gui/fxml/productManagement.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/main/gui/fxml/supplierManagement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/main/gui/fxml/supplierManagement.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/data/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/data/Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/gui/OrderPlaceController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/gui/OrderPlaceController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/gui/ProductManagementController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/gui/ProductManagementController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/gui/SupplierManagementController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/gui/SupplierManagementController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/gui/SupplierManagementController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/gui/SupplierManagementController$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/gui/SupplierManagementController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/gui/SupplierManagementController$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/gui/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/gui/Controller.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/main/gui/SupplierManagementController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/gui/SupplierManagementController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/gui/fxml/orderPlace.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/gui/fxml/orderPlace.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/gui/fxml/orderSearch.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/gui/fxml/orderSearch.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/gui/fxml/productManagement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/gui/fxml/productManagement.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/gui/fxml/supplierManagement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/gui/fxml/supplierManagement.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -127,14 +119,15 @@
     <session id="1458530277">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="31" />
+          <entry key="project.closed" value="34" />
           <entry key="project.open.time.15" value="2" />
-          <entry key="project.open.time.16" value="2" />
+          <entry key="project.open.time.16" value="4" />
           <entry key="project.open.time.18" value="3" />
           <entry key="project.open.time.19" value="6" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.20" value="3" />
           <entry key="project.open.time.21" value="1" />
+          <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.24" value="2" />
           <entry key="project.open.time.25" value="1" />
           <entry key="project.open.time.26" value="3" />
@@ -145,7 +138,7 @@
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.55" value="1" />
           <entry key="project.open.time.60" value="1" />
-          <entry key="project.opened" value="33" />
+          <entry key="project.opened" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -153,26 +146,26 @@
           <entry key="csv" value="23" />
           <entry key="fk6i174ixi9087gcvvut45em7fd" value="1" />
           <entry key="fkfykwav75w4qdtpmsag4a31m79" value="2" />
-          <entry key="fxml" value="62" />
+          <entry key="fxml" value="67" />
           <entry key="items" value="1" />
-          <entry key="java" value="224" />
+          <entry key="java" value="232" />
           <entry key="ordered_items" value="9" />
           <entry key="orders" value="16" />
           <entry key="products" value="15" />
           <entry key="sql" value="3" />
-          <entry key="suppliers" value="15" />
+          <entry key="suppliers" value="16" />
           <entry key="xml" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSV" value="21" />
-          <entry key="Database Element" value="56" />
-          <entry key="JAVA" value="224" />
+          <entry key="Database Element" value="57" />
+          <entry key="JAVA" value="232" />
           <entry key="PLAIN_TEXT" value="2" />
           <entry key="SQL" value="5" />
           <entry key="Scratch" value="1" />
-          <entry key="XML" value="77" />
+          <entry key="XML" value="82" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -180,22 +173,22 @@
           <entry key="cell" value="136" />
           <entry key="csv" value="548" />
           <entry key="dummy" value="7" />
-          <entry key="fxml" value="37" />
-          <entry key="java" value="19563" />
+          <entry key="fxml" value="50" />
+          <entry key="java" value="20239" />
           <entry key="sql" value="31" />
-          <entry key="txt" value="23" />
+          <entry key="txt" value="24" />
           <entry key="xml" value="73" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSV" value="491" />
-          <entry key="JAVA" value="19562" />
+          <entry key="JAVA" value="20238" />
           <entry key="JPA QL" value="1" />
-          <entry key="PLAIN_TEXT" value="87" />
+          <entry key="PLAIN_TEXT" value="88" />
           <entry key="SQL" value="31" />
           <entry key="Scratch" value="136" />
-          <entry key="XML" value="110" />
+          <entry key="XML" value="123" />
         </counts>
       </usages-collector>
     </session>
@@ -206,83 +199,39 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/main/gui/ProductManagementController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2389">
-              <caret line="308" selection-start-line="308" selection-end-line="308" />
-              <folding>
-                <element signature="e#6527#6528#0" expanded="true" />
-                <element signature="e#6570#6571#0" expanded="true" />
-                <element signature="e#9112#9113#0" expanded="true" />
-                <element signature="e#9171#9172#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/main/gui/SupplierManagementController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="137">
-              <caret line="78" selection-start-line="78" selection-end-line="78" />
+            <state relative-caret-position="376">
+              <caret line="57" column="1" selection-start-line="57" selection-start-column="1" selection-end-line="59" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="das://478a0a2e-dfbc-4bb7-a541-9fa2fd31208d/schema/warehouse/table/suppliers">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
+        <entry file="file://$PROJECT_DIR$/src/java/main/gui/fxml/supplierManagement.fxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="685">
+              <caret line="90" column="90" lean-forward="true" selection-start-line="90" selection-start-column="11" selection-end-line="90" selection-end-column="90" />
             </state>
           </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="das://478a0a2e-dfbc-4bb7-a541-9fa2fd31208d/schema/warehouse/table/ordered_items">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
+        <entry file="file://$PROJECT_DIR$/src/java/main/gui/fxml/orderSearch.fxml">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="10" column="39" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
             </state>
           </provider>
+          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="das://478a0a2e-dfbc-4bb7-a541-9fa2fd31208d/schema/warehouse/table/orders">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/main/gui/fxml/OrderDetails.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="11" column="127" selection-start-line="11" selection-start-column="127" selection-end-line="11" selection-end-column="127" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/main/gui/OrderDetailsController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/main/gui/OrderSearchController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2167">
-              <caret line="174" selection-start-line="174" selection-end-line="174" />
+            <state relative-caret-position="459">
+              <caret line="305" column="38" lean-forward="true" selection-start-line="305" selection-start-column="38" selection-end-line="305" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -345,8 +294,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/folder/gui/Controller.java" />
-        <option value="$PROJECT_DIR$/src/main/folder/gui/Main.java" />
         <option value="$PROJECT_DIR$/src/main/folder/hibernate.cfg.xml" />
         <option value="$PROJECT_DIR$/src/main/folder/factory/Factory.java" />
         <option value="$PROJECT_DIR$/src/main/folder/gui/OrdersController.java" />
@@ -361,7 +308,6 @@
         <option value="$PROJECT_DIR$/src/res/WarehouseDBItems.csv" />
         <option value="$PROJECT_DIR$/src/java/main/factory/Sessions.java" />
         <option value="$PROJECT_DIR$/src/res/WarehouseDBStockTracker.csv" />
-        <option value="$PROJECT_DIR$/src/java/main/gui/Controller.java" />
         <option value="$PROJECT_DIR$/src/java/main/gui/OrdersController.java" />
         <option value="$PROJECT_DIR$/src/java/main/data/Column.java" />
         <option value="$PROJECT_DIR$/src/java/main/ColumnNameAnnotation.java" />
@@ -388,13 +334,16 @@
         <option value="$PROJECT_DIR$/src/java/main/data/Product.java" />
         <option value="$PROJECT_DIR$/src/java/main/gui/fxml/orderPlace.fxml" />
         <option value="$PROJECT_DIR$/src/java/main/gui/OrderPlaceController.java" />
-        <option value="$PROJECT_DIR$/src/java/main/gui/fxml/productManagement.fxml" />
+        <option value="$PROJECT_DIR$/src/java/main/gui/OrderDetailsController.java" />
+        <option value="$PROJECT_DIR$/src/java/main/gui/fxml/OrderDetails.fxml" />
+        <option value="$PROJECT_DIR$/src/java/main/gui/Controller.java" />
+        <option value="$PROJECT_DIR$/test/main/gui/OrderSearchController/OrderDetailsController.java" />
+        <option value="$PROJECT_DIR$/src/java/main/gui/fxml/orderDetails.fxml" />
         <option value="$PROJECT_DIR$/src/java/main/gui/fxml/supplierManagement.fxml" />
         <option value="$PROJECT_DIR$/src/java/main/gui/SupplierManagementController.java" />
+        <option value="$PROJECT_DIR$/src/java/main/gui/fxml/productManagement.fxml" />
         <option value="$PROJECT_DIR$/src/java/main/gui/ProductManagementController.java" />
         <option value="$PROJECT_DIR$/src/java/main/gui/fxml/orderSearch.fxml" />
-        <option value="$PROJECT_DIR$/src/java/main/gui/fxml/OrderDetails.fxml" />
-        <option value="$PROJECT_DIR$/src/java/main/gui/OrderDetailsController.java" />
         <option value="$PROJECT_DIR$/src/java/main/gui/OrderSearchController.java" />
       </list>
     </option>
@@ -440,7 +389,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -521,6 +469,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -697,7 +646,10 @@
       <workItem from="1549878766021" duration="24786000" />
       <workItem from="1550002889738" duration="7841000" />
       <workItem from="1550073265461" duration="2771000" />
-      <workItem from="1550262426920" duration="2987000" />
+      <workItem from="1550262426920" duration="3667000" />
+      <workItem from="1550273925866" duration="323000" />
+      <workItem from="1550274305884" duration="57000" />
+      <workItem from="1550317216167" duration="11621000" />
     </task>
     <task id="LOCAL-00001" summary="prodMngt">
       <created>1548458708203</created>
@@ -762,17 +714,24 @@
       <option name="project" value="LOCAL" />
       <updated>1549932902033</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="prodMngt8">
+      <created>1550269641919</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1550269641919</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="323381000" />
+    <option name="totallyTimeSpent" value="336062000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.1772288" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.15252417" />
       <window_info id="Image Layers" order="1" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
@@ -782,7 +741,7 @@
       <window_info id="Favorites" order="7" weight="0.32975295" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32867885" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.41675618" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.38345864" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3630505" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" weight="0.32867885" />
@@ -798,7 +757,6 @@
       <window_info anchor="bottom" id="Messages" order="15" weight="0.32975295" />
       <window_info anchor="bottom" id="Java Enterprise" order="16" />
       <window_info anchor="bottom" id="Database Console" order="17" weight="0.32975295" />
-      <window_info anchor="right" id="Coverage" sideWeight="0.50698173" side_tool="true" visible="true" weight="0.283029" />
       <window_info anchor="right" id="Palette&#9;" order="0" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" id="Theme Preview" order="2" />
@@ -806,9 +764,10 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="4" type="SLIDING" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="5" weight="0.24973147" />
       <window_info anchor="right" id="JetGradle" order="6" />
-      <window_info active="true" anchor="right" id="Database" order="7" sideWeight="0.49301827" visible="true" weight="0.283029" />
+      <window_info anchor="right" id="Database" order="7" sideWeight="0.49301827" visible="true" weight="0.095059074" />
       <window_info anchor="right" id="Palette" order="8" />
       <window_info anchor="right" id="Maven Projects" order="9" weight="0.32975295" />
+      <window_info anchor="right" id="Coverage" order="10" sideWeight="0.50698173" side_tool="true" visible="true" weight="0.16111708" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -827,7 +786,8 @@
     <MESSAGE value="prodMngt5" />
     <MESSAGE value="prodMngt6" />
     <MESSAGE value="prodMngt7" />
-    <option name="LAST_COMMIT_MESSAGE" value="prodMngt7" />
+    <MESSAGE value="prodMngt8" />
+    <option name="LAST_COMMIT_MESSAGE" value="prodMngt8" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -858,15 +818,9 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/java/main/gui/SupplierManagementController.java</url>
-          <line>164</line>
+          <line>168</line>
           <properties />
           <option name="timeStamp" value="58" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/java/main/gui/ProductManagementController.java</url>
-          <line>93</line>
-          <properties />
-          <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/java/main/gui/OrderPlaceController.java</url>
@@ -875,32 +829,38 @@
           <option name="timeStamp" value="65" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/java/main/gui/ProductManagementController.java</url>
-          <line>95</line>
-          <properties />
-          <option name="timeStamp" value="66" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/java/main/gui/OrderSearchController.java</url>
-          <line>174</line>
+          <line>236</line>
           <properties />
           <option name="timeStamp" value="74" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/java/main/gui/ProductManagementController.java</url>
-          <line>310</line>
+          <line>317</line>
           <properties />
           <option name="timeStamp" value="81" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/java/main/gui/ProductManagementController.java</url>
-          <line>308</line>
+          <line>315</line>
           <properties />
           <option name="timeStamp" value="88" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/java/main/gui/OrderSearchController.java</url>
+          <line>151</line>
+          <properties />
+          <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/java/main/gui/OrderSearchController.java</url>
+          <line>139</line>
+          <properties />
+          <option name="timeStamp" value="90" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/java/main/gui/ProductManagementController.java</url>
-          <line>260</line>
+          <line>266</line>
           <properties class="main.gui.ProductManagementController" method="onAddNewProductButtonClicked">
             <option name="EMULATED" value="true" />
           </properties>
@@ -922,20 +882,13 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Desktop/warehouse_ordered_items.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="20" column="97" selection-start-line="20" selection-start-column="97" selection-end-line="20" selection-end-column="97" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/main/gui/fxml/mainGui.fxml">
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="12" column="96" selection-start-line="12" selection-start-column="96" selection-end-line="12" selection-end-column="96" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/lang/reflect/Field.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -960,11 +913,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/main/data/Column.java" />
     <entry file="file://$PROJECT_DIR$/src/res/WarehouseDBItems.csv">
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="66">
-          <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
-        </state>
-      </provider>
       <provider editor-type-id="csv-table-editor">
         <state showInfoPanel="true" rowLines="3" />
       </provider>
@@ -973,15 +921,20 @@
           <caret line="16" column="38" lean-forward="true" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="66">
+          <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/res/WarehouseDBStockTracker.csv">
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" rowLines="3" />
+      </provider>
       <provider selected="true" editor-type-id="csv-text-editor">
         <state relative-caret-position="453">
           <caret line="21" column="10" lean-forward="true" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
         </state>
-      </provider>
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" rowLines="3" />
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/lang/Enum.java">
@@ -994,13 +947,13 @@
     <entry file="file://$PROJECT_DIR$/src/res/orders.csv" />
     <entry file="file://$PROJECT_DIR$/test/java/main/ConverterTest.java" />
     <entry file="file://$PROJECT_DIR$/src/res/WarehouseDBOrders.csv">
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" rowLines="3" />
+      </provider>
       <provider selected="true" editor-type-id="csv-text-editor">
         <state relative-caret-position="154">
           <caret line="7" column="27" lean-forward="true" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
         </state>
-      </provider>
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" rowLines="3" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/main/ConverterEnum.java">
@@ -1054,13 +1007,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/res/WarehouseDBOrderedItems.csv">
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" rowLines="3" />
+      </provider>
       <provider selected="true" editor-type-id="csv-text-editor">
         <state relative-caret-position="44">
           <caret line="2" column="13" lean-forward="true" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
-      </provider>
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" rowLines="3" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/hibernate.cfg.xml">
@@ -1071,13 +1024,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/res/WarehouseDBSuppliers.csv">
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" rowLines="3" />
+      </provider>
       <provider selected="true" editor-type-id="csv-text-editor">
         <state relative-caret-position="286">
           <caret line="13" selection-start-line="13" selection-end-line="13" />
         </state>
-      </provider>
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" rowLines="3" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/main/Main.java">
@@ -1117,15 +1070,8 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Desktop/PersonTable.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/main/gui/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/util/function/Predicate.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1134,20 +1080,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/main/gui/OrdersController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="682">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/main/gui/fxml/orderPlace.fxml">
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="1980">
           <caret line="90" column="69" selection-start-line="90" selection-start-column="69" selection-end-line="90" selection-end-column="69" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/main/data/Supplier.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1187,14 +1126,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/main/gui/fxml/supplierManagement.fxml">
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="1738">
-          <caret line="79" selection-start-line="79" selection-end-line="79" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/main/gui/OrderPlaceController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="609">
@@ -1208,55 +1139,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/main/gui/fxml/orderSearch.fxml">
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/main/gui/fxml/productManagement.fxml">
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="16" column="176" selection-start-line="16" selection-start-column="176" selection-end-line="16" selection-end-column="176" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/main/gui/fxml/OrderDetails.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="11" column="127" selection-start-line="11" selection-start-column="127" selection-end-line="11" selection-end-column="127" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/main/gui/fxml/ordersManagement.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="682">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/main/gui/OrderDetailsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/main/gui/OrderSearchController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2167">
-          <caret line="174" selection-start-line="174" selection-end-line="174" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://478a0a2e-dfbc-4bb7-a541-9fa2fd31208d/schema/warehouse/table/products">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -1264,27 +1146,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/main/gui/ProductManagementController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2389">
-          <caret line="308" selection-start-line="308" selection-end-line="308" />
-          <folding>
-            <element signature="e#6527#6528#0" expanded="true" />
-            <element signature="e#6570#6571#0" expanded="true" />
-            <element signature="e#9112#9113#0" expanded="true" />
-            <element signature="e#9171#9172#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/main/gui/SupplierManagementController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="78" selection-start-line="78" selection-end-line="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://478a0a2e-dfbc-4bb7-a541-9fa2fd31208d/schema/warehouse/table/suppliers">
+    <entry file="das://478a0a2e-dfbc-4bb7-a541-9fa2fd31208d/schema/warehouse/table/orders">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
@@ -1298,10 +1160,112 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://478a0a2e-dfbc-4bb7-a541-9fa2fd31208d/schema/warehouse/table/orders">
+    <entry file="das://478a0a2e-dfbc-4bb7-a541-9fa2fd31208d/schema/warehouse/table/suppliers">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/main/gui/OrderDetailsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="22" lean-forward="true" selection-start-line="10" selection-start-column="3" selection-end-line="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/main/gui/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+          <folding>
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#444#445#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/main/gui/OrderSearchController/OrderDetailsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/main/gui/OrdersController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/main/gui/ProductManagementController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="613">
+          <caret line="341" column="61" selection-start-line="341" selection-start-column="61" selection-end-line="341" selection-end-column="61" />
+          <folding>
+            <element signature="e#6527#6528#0" expanded="true" />
+            <element signature="e#6570#6571#0" expanded="true" />
+            <element signature="e#9112#9113#0" expanded="true" />
+            <element signature="e#9171#9172#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/main/gui/fxml/productManagement.fxml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="553">
+          <caret line="100" column="97" selection-start-line="100" selection-start-column="97" selection-end-line="100" selection-end-column="97" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/main/gui/fxml/orderDetails.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="11" column="213" selection-start-line="11" selection-start-column="213" selection-end-line="11" selection-end-column="213" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/main/gui/fxml/ordersManagement.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="682">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/main/gui/SupplierManagementController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="57" column="1" selection-start-line="57" selection-start-column="1" selection-end-line="59" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/main/gui/fxml/supplierManagement.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="685">
+          <caret line="90" column="90" lean-forward="true" selection-start-line="90" selection-start-column="11" selection-end-line="90" selection-end-column="90" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/main/gui/fxml/orderSearch.fxml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="39" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/main/gui/OrderSearchController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="305" column="38" lean-forward="true" selection-start-line="305" selection-start-column="38" selection-end-line="305" selection-end-column="38" />
         </state>
       </provider>
     </entry>

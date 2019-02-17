@@ -55,6 +55,10 @@ public class SupplierManagementController {
     TextField
             filterTextField;
 
+    @FXML
+    Label
+            statusBar;
+
 
     Supplier supplier;
     SessionFactory sessionFactory;
@@ -167,6 +171,7 @@ public class SupplierManagementController {
                     return selectedField.get(supplier1).equals(value);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
+                    statusBar.setText("No value found");
                     return false;
                 }
             }));
@@ -177,6 +182,7 @@ public class SupplierManagementController {
                     fieldValue = selectedField.get(supplier1);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
+                    statusBar.setText("No value found");
                     return false;
                 }
                 String fieldString = fieldValue.toString();
@@ -191,7 +197,7 @@ public class SupplierManagementController {
         supplierTable.getItems().add(newSupplier);
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        session.save(newSupplier);
+        session.update(newSupplier);
         session.getTransaction().commit();
     }
 
@@ -221,6 +227,7 @@ public class SupplierManagementController {
         session.save(newSupplier);
         session.getTransaction().commit();
         sessionFactory.close();
+        statusBar.setText("Supplier added successfully");
     }
 
     //nie dziala
@@ -232,9 +239,10 @@ public class SupplierManagementController {
         session.save(supplier);
         session.getTransaction().commit();
         sessionFactory.close();
+        statusBar.setText("Supplier details edited successfully");
     }
 
-    //ok uzupelnic catch
+    //ok
     public void onButtonRemoveSupplierClicked() {
         ObservableList<Supplier> selectedItems = supplierTable.getSelectionModel().getSelectedItems();
         if (!selectedItems.isEmpty()) {
@@ -246,8 +254,10 @@ public class SupplierManagementController {
                 session.getTransaction().commit();
                 session.close();
                 supplierTable.getItems().remove(selectedItems.get(0));
+                statusBar.setText("Supplier removed successfully");
             } catch (HibernateException | RollbackException | IllegalStateException e) {
                 e.printStackTrace();
+                statusBar.setText("Error: supplier not removed");
             }
         }
     }

@@ -64,7 +64,10 @@ public class ProductManagementController {
     ComboBox<String>
             columnNamesCombobox;
 
-    Product product;
+    @FXML
+    Label
+            statusBar;
+
     SessionFactory sessionFactory;
     ObservableList<Product> data;
     Product newProduct;
@@ -106,6 +109,7 @@ public class ProductManagementController {
                         return selectedField.get(product).equals(value);
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
+                        statusBar.setText("Value not found");
                         return false;
                     }
                 }));
@@ -120,6 +124,7 @@ public class ProductManagementController {
                         return d >= min && d <= max;
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
+                        statusBar.setText("Value not found");
                         return false;
                     }
                 }));
@@ -135,6 +140,7 @@ public class ProductManagementController {
                     return fieldStr.toLowerCase().contains(searchInput.toLowerCase());
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
+                    statusBar.setText("Value not found");
                     return false;
                 }
             }));
@@ -291,6 +297,7 @@ public class ProductManagementController {
         session.save(newProduct);
         session.getTransaction().commit();
         sessionFactory.close();
+        statusBar.setText("Product added successfully");
     }
 
     //tworzy nowy obiekt:(
@@ -313,6 +320,7 @@ public class ProductManagementController {
         }
         session.close();
         sessionFactory.close();
+        statusBar.setText("Product details edited successfully");
     }
 
     //z bazy usuwa wszystko, ale z TV w 1 sesji 1 row
@@ -331,7 +339,7 @@ public class ProductManagementController {
                 session.getTransaction().commit();
                 session.close();
             } catch (HibernateException | RollbackException | IllegalStateException e) {
-                //....
+                statusBar.setText("Error: product not removed");
             }
         }
     }

@@ -2,10 +2,18 @@ package main.gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.converter.DateStringConverter;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
@@ -22,6 +30,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Column;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,6 +75,13 @@ public class OrderSearchController {
     TableColumn<Order, Date>
             orderDateCol;
 
+    @FXML
+    Label
+            statusBar;
+
+    @FXML
+    Stage stage;
+
     Order order;
     ObservableList<Order> data;
     SessionFactory sessionFactory;
@@ -104,6 +120,49 @@ public class OrderSearchController {
         orderColumnNames();
         for (String columns : columnNames)
             searchByCombobox.getItems().add(columns);
+
+//        orderTable.setRowFactory(table -> {
+//                    TableRow<Object> row = new TableRow<>();
+//                    row.setOnMouseClicked(event -> {
+//                        if (event.getClickCount() == 2) {
+//                            try {
+//                                onRowDoubleClicked();
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    });
+//                    return null;
+//                }
+//        )
+//        ;
+
+//        EventHandler<MouseEvent> eventHandler =
+////                event -> {
+////            if (event.getClickCount() == 2) {
+////                try {
+////                    onRowDoubleClicked();
+////                } catch (IOException e) {
+////                    e.printStackTrace();
+////                }
+////            }
+//
+//
+//
+//                new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//                if (event.getClickCount() == 2) {
+//                    try {
+//                        onRowDoubleClicked();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        };
+
+  //      orderTable.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
 
     //ok
@@ -139,14 +198,16 @@ public class OrderSearchController {
         String searchInput = searchByTextField.getText();
         Field selectedField = orderSQLColumnToFields.get(selectedColumn);
 
-        if(selectedField.getType().getSuperclass().equals(Number.class)){
+        if (selectedField.getType().getSuperclass().equals(Number.class)) {
             Integer value = Integer.parseInt(searchInput);
             orderTable.setItems(data.filtered(order -> {
                 try {
                     return selectedField.get(order).equals(value);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
+                    statusBar.setText("Order not found");
                     return false;
+
                 }
             }));
 
@@ -157,6 +218,7 @@ public class OrderSearchController {
                     fieldValue = selectedField.get(order);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
+                    statusBar.setText("Order not found");
                     return false;
                 }
                 String fieldString = fieldValue.toString();
@@ -167,7 +229,7 @@ public class OrderSearchController {
     }
 
     //nie dziala
-    public void onButtonStatusUpdateClicked(){
+    public void onButtonStatusUpdateClicked() {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         Integer oid = orderTable.getSelectionModel().getSelectedItem().getOrderNumber();
@@ -176,6 +238,7 @@ public class OrderSearchController {
         session.getTransaction().commit();
         session.close();
         sessionFactory.close();
+        statusBar.setText("Order status successfully updated");
     }
 
     //nie dziala
@@ -198,12 +261,11 @@ public class OrderSearchController {
         Integer oldOrderNo = orderTable.getSelectionModel().getSelectedItem().getOrderNumber();//ok
         Order oldOrder = session.get(Order.class, oldOrderNo);//ok
 
-        List<OrderedItems> filteredList =  session.createQuery(
+        List<OrderedItems> filteredList = session.createQuery(
                 "from OrderedItems as orderedItems where orderedItems.orderId = : oid").setParameter("oid", oldOrderNo).list();
 
 
-
-        for(OrderedItems b:filteredList) {
+        for (OrderedItems b : filteredList) {
             System.out.println(b);
         }
 
@@ -219,8 +281,37 @@ public class OrderSearchController {
 
     //ok
     public void onButtonShowAllOrdersClicked() {
-        orderTable.setItems(data );
+        orderTable.setItems(data);
     }
 
+
+
+    public void onRowDoubleClicked() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/orderDetails.fxml"));
+        loader.setController(OrderDetailsController.class);
+        loader.load();
+        StackPane root = new StackPane();
+        stage.setTitle("Order Details");
+        stage.setScene(new Scene(root , 400, 500));
+        stage.show();
+    }
+
+    class OrderDetailsController {
+
+        @FXML
+        TextField
+                orderDetailId,
+                orderDetailStatus,
+                orderDetailDate,
+                orderDetailSupplierId,
+                orderDetailSupplierName,
+                orderDetailTotal;
+
+        @FXML
+        ListView<OrderedItems>
+                orderDetailItems;
+
+
+    }
 
 }

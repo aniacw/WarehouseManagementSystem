@@ -12,14 +12,15 @@ import java.io.IOException;
 public class Controller {
 
     @FXML
-    Button productManagementButton,
+    Button
+            productManagementButton,
             ordersButton,
             suppliersButton;
 
     @FXML
     Stage stage;
 
-    public void initialize(){
+    public void initialize() {
         stage = new Stage();
     }
 
