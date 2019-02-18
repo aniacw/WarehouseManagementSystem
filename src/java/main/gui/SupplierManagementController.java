@@ -66,9 +66,12 @@ public class SupplierManagementController {
     Supplier newSupplier;
     List<String> columnNames;
     Map<String, Field> columnMap;
+    Session session;
 
     public void initialize() {
         sessionFactory = Sessions.getSessionFactory();
+        session = sessionFactory.openSession();
+
         supplierTable.getColumns().clear();
         supplierNameCol.setCellValueFactory(new PropertyValueFactory<Supplier, String>("name"));
         supplierIdCol.setCellValueFactory(new PropertyValueFactory<Supplier, Integer>("id"));
@@ -133,12 +136,11 @@ public class SupplierManagementController {
     @SuppressWarnings("unchecked")
     public ObservableList<Supplier> createsupplierTable() {
         data = FXCollections.observableArrayList();
-        Session session = sessionFactory.openSession();
         session.beginTransaction();
         List<Supplier> suppliers = session.createQuery("from Supplier").list();
         for (Supplier s : suppliers)
             data.add(s);
-        session.close();
+        session.getTransaction().commit();
         return data;
     }
 
@@ -195,15 +197,13 @@ public class SupplierManagementController {
     public void onButtonAddRowClicked() {
         newSupplier = new Supplier("", 0, "", 0);
         supplierTable.getItems().add(newSupplier);
-        Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        session.update(newSupplier);
+        session.save(newSupplier);
         session.getTransaction().commit();
     }
 
     //ok
     public void onButtonAddSupplierTVClicked() {
-        Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
 
         supplierNameCol.setOnEditCommit(
@@ -226,17 +226,15 @@ public class SupplierManagementController {
 
         session.save(newSupplier);
         session.getTransaction().commit();
-        sessionFactory.close();
         statusBar.setText("Supplier added successfully");
     }
 
-    //nie dziala
+    //ok
     public void onButtonEditSupplierTVClicked() {
-        Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         Integer sid = supplierTable.getSelectionModel().getSelectedItem().getId();
         supplier = session.get(Supplier.class, sid);
-        session.save(supplier);
+        session.update(supplier);
         session.getTransaction().commit();
         sessionFactory.close();
         statusBar.setText("Supplier details edited successfully");
@@ -247,12 +245,10 @@ public class SupplierManagementController {
         ObservableList<Supplier> selectedItems = supplierTable.getSelectionModel().getSelectedItems();
         if (!selectedItems.isEmpty()) {
             try {
-                Session session = sessionFactory.openSession();
                 session.beginTransaction();
                 for (Supplier selected : selectedItems)
                     session.delete(selected);
                 session.getTransaction().commit();
-                session.close();
                 supplierTable.getItems().remove(selectedItems.get(0));
                 statusBar.setText("Supplier removed successfully");
             } catch (HibernateException | RollbackException | IllegalStateException e) {

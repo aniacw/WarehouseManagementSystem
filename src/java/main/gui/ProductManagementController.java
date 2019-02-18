@@ -73,8 +73,81 @@ public class ProductManagementController {
     Product newProduct;
     List<String> columnNames;
     HashMap<String, Field> productSQLColumnToFields;
+    Session session;
+    Product product;
 
-//ok
+
+    public void initialize() {
+        sessionFactory = Sessions.getSessionFactory();
+        session = sessionFactory.openSession();
+
+//        productTable.getColumns().clear();
+        productIdCol.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id")); //nazwa pola w klasie
+        productNameCol.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
+        productCategoryCol.setCellValueFactory(new PropertyValueFactory<Product, String>("category"));
+        productPriceCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("unitPrice"));
+        productSupplierIdCol.setCellValueFactory(new PropertyValueFactory<Product, Integer>("supplierId"));
+        productSupplierNameCol.setCellValueFactory(new PropertyValueFactory<Product, Supplier>("supplier"));
+        //productTable.getColumns().setAll(productIdCol, productNameCol, productCategoryCol, productPriceCol, productSupplierIdCol, );
+
+        productIdCol.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
+        productNameCol.setCellFactory(TextFieldTableCell.<Product>forTableColumn());
+        productCategoryCol.setCellFactory(TextFieldTableCell.<Product>forTableColumn());
+        productPriceCol.setCellFactory(TextFieldTableCell.<Product, Double>forTableColumn(new DoubleStringConverter()));
+        productSupplierIdCol.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
+        productSupplierNameCol.setCellFactory(TextFieldTableCell.<Product, Supplier>forTableColumn(new StringConverter<Supplier>() {
+            @Override
+            public String toString(Supplier object) {
+                if (object == null)
+                    return "OK";
+                else
+                    return object.getName();
+            }
+
+            @Override
+            public Supplier fromString(String string) {
+                return null;
+            }
+        }));
+
+        productTable.setItems(createproductTable());
+
+        productTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        productNameCol.setOnEditCommit(
+                event -> {
+                    (event.getTableView().getItems().get(
+                            event.getTablePosition().getRow())
+                    ).setName(event.getNewValue());
+                }
+        );
+
+        productCategoryCol.setOnEditCommit(
+                event -> (event.getTableView().getItems().get(
+                        event.getTablePosition().getRow())
+                ).setCategory(event.getNewValue())
+        );
+
+        productPriceCol.setOnEditCommit(
+                event -> (event.getTableView().getItems().get(
+                        event.getTablePosition().getRow())
+                ).setUnitPrice(event.getNewValue())
+        );
+
+        productSupplierIdCol.setOnEditCommit(
+                event -> ((Product) event.getTableView().getItems().get(
+                        event.getTablePosition().getRow())
+                ).setSupplierId(event.getNewValue())
+        );
+
+        productTable.setEditable(true);
+
+        productColumnNames();
+        for (String columns : columnNames)
+            columnNamesCombobox.getItems().add(columns);
+    }
+
+    //ok
     private List<String> productColumnNames() {
         Field[] fields = Product.class.getDeclaredFields();
         productSQLColumnToFields = new HashMap<String, Field>();
@@ -147,89 +220,14 @@ public class ProductManagementController {
         }
     }
 
-    public void initialize() {
-        sessionFactory = Sessions.getSessionFactory();
-//        productTable.getColumns().clear();
-        productIdCol.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id")); //nazwa pola w klasie
-        productNameCol.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
-        productCategoryCol.setCellValueFactory(new PropertyValueFactory<Product, String>("category"));
-        productPriceCol.setCellValueFactory(new PropertyValueFactory<Product, Double>("unitPrice"));
-        productSupplierIdCol.setCellValueFactory(new PropertyValueFactory<Product, Integer>("supplierId"));
-        productSupplierNameCol.setCellValueFactory(new PropertyValueFactory<Product, Supplier>("supplier"));
-        //productTable.getColumns().setAll(productIdCol, productNameCol, productCategoryCol, productPriceCol, productSupplierIdCol, );
-
-        productIdCol.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
-        productNameCol.setCellFactory(TextFieldTableCell.<Product>forTableColumn());
-        productCategoryCol.setCellFactory(TextFieldTableCell.<Product>forTableColumn());
-        productPriceCol.setCellFactory(TextFieldTableCell.<Product, Double>forTableColumn(new DoubleStringConverter()));
-        productSupplierIdCol.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
-        productSupplierNameCol.setCellFactory(TextFieldTableCell.<Product, Supplier>forTableColumn(new StringConverter<Supplier>() {
-            @Override
-            public String toString(Supplier object) {
-                if (object == null)
-                    return "OK";
-                else
-                    return object.getName();
-            }
-
-            @Override
-            public Supplier fromString(String string) {
-                return null;
-            }
-        }));
-
-        productTable.setItems(createproductTable());
-
-        productTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-        productIdCol.setOnEditCommit(
-                event -> {
-                    (event.getTableView().getItems().get(
-                            event.getTablePosition().getRow())
-                    ).setId(event.getNewValue());
-                }
-        );
-
-        productNameCol.setOnEditCommit(
-                event -> {
-                    (event.getTableView().getItems().get(
-                            event.getTablePosition().getRow())
-                    ).setName(event.getNewValue());
-                }
-        );
-
-        productCategoryCol.setOnEditCommit(
-                event -> (event.getTableView().getItems().get(
-                        event.getTablePosition().getRow())
-                ).setCategory(event.getNewValue())
-        );
-
-        productPriceCol.setOnEditCommit(
-                event -> (event.getTableView().getItems().get(
-                        event.getTablePosition().getRow())
-                ).setUnitPrice(event.getNewValue())
-        );
-
-        productSupplierIdCol.setOnEditCommit(
-                event -> ((Product) event.getTableView().getItems().get(
-                        event.getTablePosition().getRow())
-                ).setSupplierId(event.getNewValue())
-        );
-
-        productTable.setEditable(true);
-
-        productColumnNames();
-        for (String columns : columnNames)
-            columnNamesCombobox.getItems().add(columns);
-    }
-
+    //ok
     public ObservableList<Product> createproductTable() {
         data = FXCollections.observableArrayList();
-        Session session = sessionFactory.openSession();
         session.beginTransaction();
         List<Product> products = session.createQuery("from Product").list();
         for (Product p : products)
             data.add(p);
+        session.getTransaction().commit();
         return data;
     }
 
@@ -257,7 +255,6 @@ public class ProductManagementController {
     public void onButtonAddRowClicked() {
         newProduct = new Product(0, "", "", 0, 0);
         productTable.getItems().add(newProduct);
-        Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.save(newProduct);
         session.getTransaction().commit();
@@ -265,7 +262,6 @@ public class ProductManagementController {
 
     //ok
     public void onAddNewProductButtonClicked() {
-        Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
 
         productNameCol.setOnEditCommit(
@@ -296,30 +292,16 @@ public class ProductManagementController {
 
         session.save(newProduct);
         session.getTransaction().commit();
-        sessionFactory.close();
         statusBar.setText("Product added successfully");
     }
 
-    //tworzy nowy obiekt:(
+    //ok
     public void onEditProductButtonClicked() {
-        Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-
-        if (productTable.getSelectionModel().getSelectedItem() != null) {
-            Product selectedproduct = productTable.getSelectionModel().getSelectedItem();
-            selectedproduct.setId(selectedproduct.getId());
-            selectedproduct.setName(selectedproduct.getName());
-            selectedproduct.setUnitPrice(selectedproduct.getUnitPrice());
-            selectedproduct.setCategory(selectedproduct.getCategory());
-            selectedproduct.setSupplierId(selectedproduct.getSupplierId());
-            selectedproduct.setSupplier(selectedproduct.getSupplier());
-            selectedproduct.setQuantityOnStock(selectedproduct.getQuantityOnStock());
-
-            session.save(selectedproduct);
-            session.getTransaction().commit();
-        }
-        session.close();
-        sessionFactory.close();
+        Integer pid = productTable.getSelectionModel().getSelectedItem().getId();
+        product = session.get(Product.class, pid);
+        session.update(product);
+        session.getTransaction().commit();
         statusBar.setText("Product details edited successfully");
     }
 
@@ -328,7 +310,6 @@ public class ProductManagementController {
         ObservableList<Product> selectedItems = productTable.getSelectionModel().getSelectedItems();
         if (!selectedItems.isEmpty()) {
             try {
-                Session session = sessionFactory.openSession();
                 session.beginTransaction();
 
                 for (Product selected : selectedItems)
@@ -337,7 +318,6 @@ public class ProductManagementController {
                     productTable.getItems().remove(selectedItems.get(i));
 
                 session.getTransaction().commit();
-                session.close();
             } catch (HibernateException | RollbackException | IllegalStateException e) {
                 statusBar.setText("Error: product not removed");
             }

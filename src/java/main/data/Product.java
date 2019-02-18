@@ -31,6 +31,9 @@ public class Product implements Serializable {
     @Column(name = "quantity_on_stock")
     private Integer quantityOnStock;
 
+    @OneToOne(fetch = FetchType.LAZY)//nie bylo
+    private OrderedItems orderedItems;
+
     public Product() {
     }
 
@@ -101,5 +104,13 @@ public class Product implements Serializable {
 
     public void setQuantityOnStock(Integer quantityOnStock) {
         this.quantityOnStock = quantityOnStock;
+    }
+
+    public OrderedItems getOrderedItems() {
+        return orderedItems;
+    }
+
+    public void setOrderedItems(OrderedItems orderedItems) {
+        this.orderedItems = orderedItems;
     }
 }

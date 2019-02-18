@@ -92,6 +92,7 @@ public class OrderPlaceController {
     Map<String, Field> productsPerSupplier;
     List<Product> filteredProducts;
     ObservableList<Product> filteredProductsOL;
+    Session session;
 
     public void createMap() {
         Field[] fields = Product.class.getDeclaredFields();
@@ -101,7 +102,6 @@ public class OrderPlaceController {
             f.setAccessible(true);
             Column column = f.getAnnotation(Column.class);
             if (column != null) {
-
                 productsPerSupplier.put(column.name(), f);
             }
         }
@@ -109,16 +109,15 @@ public class OrderPlaceController {
 
     //ok
     private List<String> supplierColumnOrder() {
-        Session session = sessionFactory.openSession();
         session.beginTransaction();
         supplierNames = session.createQuery("select supplier.name from Supplier  as supplier ").list();
-        session.close();
         return supplierNames;
     }
 
     //ok
     public void initialize() {
         sessionFactory = Sessions.getSessionFactory();
+        session = sessionFactory.openSession();
 
         initializeProductsTV();
 
@@ -195,17 +194,16 @@ public class OrderPlaceController {
     //ok
     public ObservableList<Product> showproductsList() {
         dataProducts = FXCollections.observableArrayList();
-        Session session = sessionFactory.openSession();
         session.beginTransaction();
         allProducts = session.createQuery("from Product").list();
         for (Product p : allProducts)
             dataProducts.add(p);
+        session.getTransaction().commit();
         return dataProducts;
     }
 
     //ok
     public void onSuppliersSelected(ActionEvent e) {
-        Session session = sessionFactory.openSession();
         session.beginTransaction();
         selectedSupplier = suppliersComboBox.getSelectionModel().getSelectedItem();
 
@@ -215,7 +213,6 @@ public class OrderPlaceController {
         filteredProductsOL = FXCollections.observableArrayList(filteredProducts);
 
         supplierProducts.setItems(filteredProductsOL);
-        session.close();
     }
 
 
@@ -247,7 +244,6 @@ public class OrderPlaceController {
         if (orderDraft.getItems().size() == 0)
             return; //komunikat
 
-        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         Order newOrder = new Order(
@@ -272,6 +268,5 @@ public class OrderPlaceController {
         }
         session.save(newOrder);
         session.getTransaction().commit();
-        session.close();
     }
 }

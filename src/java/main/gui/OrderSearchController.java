@@ -87,9 +87,11 @@ public class OrderSearchController {
     SessionFactory sessionFactory;
     HashMap<String, Field> orderSQLColumnToFields;
     List<String> columnNames;
+    Session session;
 
     public void initialize() {
         sessionFactory = Sessions.getSessionFactory();
+        session = sessionFactory.openSession();
 
         orderNoCol.setCellValueFactory(new PropertyValueFactory<Order, Integer>("orderNumber")); //nazwa pola w klasie
         orderStatusCol.setCellValueFactory(new PropertyValueFactory<Order, OrderStatus>("status"));
@@ -168,11 +170,11 @@ public class OrderSearchController {
     //ok
     public ObservableList<Order> createorderTable() {
         data = FXCollections.observableArrayList();
-        Session session = sessionFactory.openSession();
         session.beginTransaction();
         List<Order> orders = session.createQuery("from Order ").list();
         for (Order o : orders)
             data.add(o);
+        session.getTransaction().commit();
         return data;
     }
 
@@ -228,22 +230,18 @@ public class OrderSearchController {
 
     }
 
-    //nie dziala
+    //ok
     public void onButtonStatusUpdateClicked() {
-        Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         Integer oid = orderTable.getSelectionModel().getSelectedItem().getOrderNumber();
         order = session.get(Order.class, oid);
-        session.save(order);
+        session.update(order);
         session.getTransaction().commit();
-        session.close();
-        sessionFactory.close();
         statusBar.setText("Order status successfully updated");
     }
 
     //nie dziala
     public void onButtonOrderAgainClicked() {
-        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         Order newOrder = new Order(
@@ -276,14 +274,12 @@ public class OrderSearchController {
         }
         session.save(newOrder);
         session.getTransaction().commit();
-        session.close();
     }
 
     //ok
     public void onButtonShowAllOrdersClicked() {
         orderTable.setItems(data);
     }
-
 
 
     public void onRowDoubleClicked() throws IOException {

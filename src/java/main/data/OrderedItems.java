@@ -34,7 +34,7 @@ public class OrderedItems implements Serializable {
     private Order order;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)//zmienilam z manytoone
     @JoinColumn(name = "product_id", insertable = false, updatable = false, nullable = true)
     private Product product;
 
