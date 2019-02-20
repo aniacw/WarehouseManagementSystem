@@ -20,7 +20,6 @@ public class Order implements Serializable {
     @Column(name = "order_no", unique = true, nullable = false)
     private Integer orderNumber;
 
-    //@Enumerated(EnumType.STRING)
     @Convert(converter = ConverterEnum.class)
     @Column(name = "order_status", nullable = false)
     private OrderStatus status;
@@ -36,6 +35,8 @@ public class Order implements Serializable {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderedItems> orderedItems;
+
+    private Supplier supplier;
 
 
     static DateFormat string = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);

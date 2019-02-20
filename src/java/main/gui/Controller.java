@@ -15,7 +15,8 @@ public class Controller {
     Button
             productManagementButton,
             ordersButton,
-            suppliersButton;
+            suppliersButton,
+            priceCheckButton;
 
     @FXML
     Stage stage;
@@ -41,6 +42,13 @@ public class Controller {
     public void onSuppliersButtonClicked() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/supplierManagement.fxml"));
         stage.setTitle("Supplier Management");
+        stage.setScene(new Scene(root, 884, 528));
+        stage.show();
+    }
+
+    public void onPriceCheckButtonClicked() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/priceCheck.fxml"));
+        stage.setTitle("Price CHeck");
         stage.setScene(new Scene(root, 884, 528));
         stage.show();
     }

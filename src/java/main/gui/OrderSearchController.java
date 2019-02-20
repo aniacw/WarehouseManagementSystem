@@ -283,6 +283,7 @@ public class OrderSearchController {
 
 
     public void onRowDoubleClicked() throws IOException {
+        order = orderTable.getSelectionModel().getSelectedItem();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/orderDetails.fxml"));
         loader.setController(OrderDetailsController.class);
         loader.load();
@@ -307,7 +308,25 @@ public class OrderSearchController {
         ListView<OrderedItems>
                 orderDetailItems;
 
+        String oid = order.getOrderNumber().toString();
+        String os = order.getStatus().toString();
+        String od = order.getDate().toString();
+        String osid = order.getSupplierId().toString();
+       // String osn = order.getSupplier    potem dokoncze
+        String ot = order.getTotalOrderValue().toString();
+        List<OrderedItems> list = order.getOrderedItems();
+        ObservableList<OrderedItems> olist  = FXCollections.observableList(list);
 
+        public void initialize(){
+            orderDetailId.setText(oid);
+            orderDetailStatus.setText(os);
+            orderDetailDate.setText(od);
+            orderDetailSupplierId.setText(osid);
+            orderDetailSupplierName.setText("");
+            orderDetailTotal.setText(ot);
+            //orderDetailItems.getItems().addAll(olist)
+            orderDetailItems.setItems(olist);
+        }
     }
 
 }

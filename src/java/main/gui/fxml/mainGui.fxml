@@ -34,7 +34,7 @@
             <Insets bottom="10.0" left="10.0" />
          </GridPane.margin>
       </Button>
-      <Button mnemonicParsing="false" prefHeight="192.0" prefWidth="326.0" text="Stocks" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP">
+      <Button fx:id="priceCheckButton" mnemonicParsing="false" onAction="#onPriceCheckButtonClicked" prefHeight="192.0" prefWidth="326.0" text="Price Check" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets right="10.0" top="10.0" />
          </GridPane.margin>
