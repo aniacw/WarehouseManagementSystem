@@ -79,8 +79,7 @@ public class OrderSearchController {
     Label
             statusBar;
 
-    @FXML
-    Stage stage;
+
 
     Order order;
     ObservableList<Order> data;
@@ -123,32 +122,32 @@ public class OrderSearchController {
         for (String columns : columnNames)
             searchByCombobox.getItems().add(columns);
 
-//        orderTable.setRowFactory(table -> {
-//                    TableRow<Object> row = new TableRow<>();
-//                    row.setOnMouseClicked(event -> {
-//                        if (event.getClickCount() == 2) {
-//                            try {
-//                                onRowDoubleClicked();
-//                            } catch (IOException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    });
-//                    return null;
-//                }
-//        )
-//        ;
+        orderTable.setRowFactory(table -> {
+                    TableRow<Order> row = new TableRow<>();
+                    row.setOnMouseClicked(event -> {
+                        if (event.getClickCount() == 2) {
+                            try {
+                                onRowDoubleClicked();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    return row;
+                }
+        );
 
 //        EventHandler<MouseEvent> eventHandler =
-////                event -> {
-////            if (event.getClickCount() == 2) {
-////                try {
-////                    onRowDoubleClicked();
-////                } catch (IOException e) {
-////                    e.printStackTrace();
-////                }
-////            }
-//
+//                event -> {
+//                    if (event.getClickCount() == 2) {
+//                        try {
+//                            onRowDoubleClicked();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                };
+
 //
 //
 //                new EventHandler<MouseEvent>() {
@@ -164,7 +163,7 @@ public class OrderSearchController {
 //            }
 //        };
 
-  //      orderTable.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
+       // orderTable.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
 
     //ok
@@ -285,48 +284,15 @@ public class OrderSearchController {
     public void onRowDoubleClicked() throws IOException {
         order = orderTable.getSelectionModel().getSelectedItem();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/orderDetails.fxml"));
-        loader.setController(OrderDetailsController.class);
-        loader.load();
-        StackPane root = new StackPane();
+        //OrderDetailsController controller = new OrderDetailsController(order);
+        //loader.setController(controller);
+        Parent root = loader.load();
+        OrderDetailsController controller = loader.getController();
+        controller.setOrder(order);
+        Stage stage = new Stage();
         stage.setTitle("Order Details");
-        stage.setScene(new Scene(root , 400, 500));
+        stage.setScene(new Scene(root, 400, 500));
         stage.show();
-    }
-
-    class OrderDetailsController {
-
-        @FXML
-        TextField
-                orderDetailId,
-                orderDetailStatus,
-                orderDetailDate,
-                orderDetailSupplierId,
-                orderDetailSupplierName,
-                orderDetailTotal;
-
-        @FXML
-        ListView<OrderedItems>
-                orderDetailItems;
-
-        String oid = order.getOrderNumber().toString();
-        String os = order.getStatus().toString();
-        String od = order.getDate().toString();
-        String osid = order.getSupplierId().toString();
-       // String osn = order.getSupplier    potem dokoncze
-        String ot = order.getTotalOrderValue().toString();
-        List<OrderedItems> list = order.getOrderedItems();
-        ObservableList<OrderedItems> olist  = FXCollections.observableList(list);
-
-        public void initialize(){
-            orderDetailId.setText(oid);
-            orderDetailStatus.setText(os);
-            orderDetailDate.setText(od);
-            orderDetailSupplierId.setText(osid);
-            orderDetailSupplierName.setText("");
-            orderDetailTotal.setText(ot);
-            //orderDetailItems.getItems().addAll(olist)
-            orderDetailItems.setItems(olist);
-        }
     }
 
 }

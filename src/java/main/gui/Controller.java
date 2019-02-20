@@ -18,7 +18,6 @@ public class Controller {
             suppliersButton,
             priceCheckButton;
 
-    @FXML
     Stage stage;
 
     public void initialize() {
