@@ -284,15 +284,70 @@ public class OrderSearchController {
     public void onRowDoubleClicked() throws IOException {
         order = orderTable.getSelectionModel().getSelectedItem();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/orderDetails.fxml"));
-        //OrderDetailsController controller = new OrderDetailsController(order);
-        //loader.setController(controller);
+       // OrderDetailsController controller = new OrderDetailsController(order);
+        OrderDetailsController controller = new OrderDetailsController();
+        loader.setController(controller);
         Parent root = loader.load();
-        OrderDetailsController controller = loader.getController();
+       // OrderDetailsController controller = loader.getController();
         controller.setOrder(order);
         Stage stage = new Stage();
         stage.setTitle("Order Details");
         stage.setScene(new Scene(root, 400, 500));
         stage.show();
+    }
+
+    class OrderDetailsController {
+
+        @FXML
+        TextField
+                orderDetailId,
+                orderDetailStatus,
+                orderDetailDate,
+                orderDetailSupplierId,
+                orderDetailSupplierName,
+                orderDetailTotal;
+
+        @FXML
+        ListView<OrderedItems>
+                orderDetailItems;
+
+        String oid;
+        String os;
+        String od ;
+        String osid ;
+        // String osn = order.getSupplier    potem dokoncze
+        String ot;
+        List<OrderedItems> list;
+        ObservableList<OrderedItems> olist;
+
+     //   Order order;
+
+        public OrderDetailsController() {
+        }
+
+        void setOrder(Order order){
+         //   this.order = order;
+            oid = order.getOrderNumber().toString();
+            os = order.getStatus().toString();
+            od = order.getDate().toString();
+            osid = order.getSupplierId().toString();
+            ot = order.getTotalOrderValue().toString();
+            list = order.getOrderedItems();
+            olist  = FXCollections.observableList(list);
+
+            orderDetailId.setText(oid);
+            orderDetailStatus.setText(os);
+            orderDetailDate.setText(od);
+            orderDetailSupplierId.setText(osid);
+            orderDetailSupplierName.setText("");
+            orderDetailTotal.setText(ot);
+            //orderDetailItems.getItems().addAll(olist)
+            orderDetailItems.setItems(olist);
+        }
+
+        public void initialize(){
+
+        }
     }
 
 }
